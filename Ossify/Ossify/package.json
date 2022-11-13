@@ -1,0 +1,12 @@
+{
+    "name": "love.tilde.ossify",
+    "displayName": "Ossify",
+    "author": { "name": "Tilde Love", "url": "http://tilde.love" },
+    "version": "0.0.0",
+    "unity": "2021.3",
+    "description": "Ossify gives your project bones. A data binding methodology.",
+    "keywords": [ "project", "data", "model", "view", "binding" ],
+    "license": "MIT",
+    "category": "DataModel",
+    "dependencies": {}
+}
