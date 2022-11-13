@@ -6,9 +6,14 @@ namespace Ossify.Activations
     [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Variables/Activation Set")]
     public sealed class ActivationSet : ScriptableObject
     {
+        [SerializeField] private List<Activation> activations = new();
         private readonly Dictionary<Activation, Activation.Reference> references = new();
-        
-        [SerializeField] private List<Activation> activations = new ();
+
+        public bool this[Activation activation]
+        {
+            get => references[activation].Active;
+            set => references[activation].Active = value;
+        }
 
         private void OnEnable()
         {
@@ -24,14 +29,8 @@ namespace Ossify.Activations
             {
                 keyValuePair.Value.Dispose();
             }
-            
-            references.Clear();
-        }
 
-        public bool this[Activation activation]
-        {
-            get => references[activation].Active;
-            set => references[activation].Active = value;
+            references.Clear();
         }
     }
 }

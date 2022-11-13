@@ -5,15 +5,15 @@ namespace Ossify.Variables
 {
     public sealed class FloatPublisher : MonoBehaviour
     {
-        [SerializeField] private FloatReference variable = new (); 
+        [SerializeField] private FloatReference variable = new();
         [SerializeField, HideInInspector] private float value;
-        
-        [ShowInInspector] 
+
+        [ShowInInspector]
         public float Value
         {
             get => value;
-            set 
-            { 
+            set
+            {
                 this.value = value;
                 variable.Value = value;
             }

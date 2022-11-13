@@ -3,7 +3,6 @@ using System.IO;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,66 +12,75 @@ namespace Ossify
     [CreateAssetMenu(order = Consts.ContainerMenuItems, menuName = "Variables/Bin")]
     public sealed class Bin : ScriptableObject
     {
-        [InfoBox(message: "\n"
-                          + "Bins are simple containers.\n"
-                          + "It can hold any number of ScriptableObjects.\n"
-                          + "If you drop items below they will be moved into the bin.\n"
-                          + "If they are already in the bin they will be saved int the folder where the bin resides.\n"
-                          + "If you drop a bin on another bin it will be merged into the target bin.\n"
-                          + "\n")]
-        [ShowInInspector, AssetsOnly, LabelText("DROP ITEMS HERE"), ] private List<ScriptableObject> items = new ();
+        [InfoBox(
+             "\n"
+             + "Bins are simple containers.\n"
+             + "It can hold any number of ScriptableObjects.\n"
+             + "If you drop items below they will be moved into the bin.\n"
+             + "If they are already in the bin they will be saved int the folder where the bin resides.\n"
+             + "If you drop a bin on another bin it will be merged into the target bin.\n"
+             + "\n"
+         ), ShowInInspector, AssetsOnly, LabelText("DROP ITEMS HERE")]
         
+        private List<ScriptableObject> items = new();
+
 #if UNITY_EDITOR
         private async void OnValidate()
         {
-            if (items.Count == 0) return;
-            
+            if (items.Count == 0)
+            {
+                return;
+            }
+
             string assetPath = AssetDatabase.GetAssetPath(this);
             string assetFolder = assetPath[..^Path.GetFileName(assetPath).Length];
-            
+
             Debug.Log("Asset Folder: " + assetFolder);
-            
-            foreach (var item in items)
+
+            foreach (ScriptableObject item in items)
             {
                 string path = AssetDatabase.GetAssetPath(item);
-                
+
                 //Debug.Log(path);
-                
-                var typeString = AssetDatabase.GetMainAssetTypeAtPath(path).ToString();
-                
+
+                string typeString = AssetDatabase.GetMainAssetTypeAtPath(path).ToString();
+
                 //Debug.Log(typeString);
 
-                var main = AssetDatabase.LoadMainAssetAtPath(path);
+                Object main = AssetDatabase.LoadMainAssetAtPath(path);
 
                 if (item is Bin && item != this)
                 {
-                    foreach (var sub in AssetDatabase.LoadAllAssetsAtPath(path))
+                    foreach (Object sub in AssetDatabase.LoadAllAssetsAtPath(path))
                     {
-                        if (sub == item) continue;
-                        
+                        if (sub == item)
+                        {
+                            continue;
+                        }
+
                         AssetDatabase.RemoveObjectFromAsset(sub);
-                        
+
                         AssetDatabase.AddObjectToAsset(sub, this);
-                        
+
                         EditorUtility.SetDirty(sub);
                     }
-                    
+
                     EditorUtility.SetDirty(item);
 
                     AssetDatabase.SaveAssets();
-                    
+
                     await UniTask.NextFrame();
-                    
+
                     AssetDatabase.DeleteAsset(path);
                 }
                 else if (main == this)
                 {
-                    string newAsset = Path.Combine(assetFolder, item.name) + ".asset"; 
-                    
+                    string newAsset = Path.Combine(assetFolder, item.name) + ".asset";
+
                     Debug.Log(newAsset);
-                    
+
                     AssetDatabase.RemoveObjectFromAsset(item);
-                    
+
                     AssetDatabase.CreateAsset(item, newAsset);
 
                     EditorUtility.SetDirty(item);
@@ -84,11 +92,11 @@ namespace Ossify
                     AssetDatabase.RemoveObjectFromAsset(item);
 
                     AssetDatabase.AddObjectToAsset(item, this);
-                    
+
                     EditorUtility.SetDirty(this);
-                    
+
                     EditorUtility.SetDirty(main);
-                    
+
                     EditorUtility.SetDirty(item);
                 }
                 else if (main == item)
@@ -99,13 +107,13 @@ namespace Ossify
                     }
 
                     AssetDatabase.RemoveObjectFromAsset(item);
-                    
+
                     AssetDatabase.AddObjectToAsset(item, this);
 
                     AssetDatabase.SaveAssets();
-                    
+
                     await UniTask.NextFrame();
-                    
+
                     if (AssetDatabase.DeleteAsset(path) == false)
                     {
                         Debug.LogError("Could not delete asset: " + path);
@@ -120,17 +128,17 @@ namespace Ossify
 
                 EditorUtility.SetDirty(this);
             }
-            
+
             items.Clear();
-            
+
             await UniTask.NextFrame();
-            
+
             AssetDatabase.SetMainObject(this, assetPath);
 
             AssetDatabase.SaveAssets();
-            
+
             await UniTask.NextFrame();
-            
+
             AssetDatabase.ImportAsset(assetPath);
         }
 
@@ -274,6 +282,6 @@ namespace Ossify
                 : $"{GetFullPath(go.transform.parent.gameObject)}/{go.name}";
                 
             */
-#endif 
+#endif
     }
 }

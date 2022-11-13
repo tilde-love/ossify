@@ -2,21 +2,22 @@ using System;
 
 namespace Ossify.Bindings
 {
-    public abstract class EventBinding<TBound, TValue> : IIHierarchyBinding where TBound : class 
+    public abstract class EventBinding<TBound, TValue> : IIHierarchyBinding where TBound : class
     {
         public TBound Bound { get; }
 
-        public EventBinding(TBound bound)
+        public EventBinding(TBound bound) => Bound = bound ?? throw new ArgumentNullException(nameof(bound));
+
+        public virtual void Dispose()
         {
-            Bound = bound ?? throw new ArgumentNullException(nameof(bound));
         }
 
-        public virtual void Dispose() { }
-
         /// <summary>
-        /// Does nothing.
+        ///     Does nothing.
         /// </summary>
-        public void Cache() { }
+        public void Cache()
+        {
+        }
 
         public abstract void Raise(TValue value);
     }
@@ -25,17 +26,18 @@ namespace Ossify.Bindings
     {
         public TBound Bound { get; }
 
-        public EventBinding(TBound bound)
+        public EventBinding(TBound bound) => Bound = bound ?? throw new ArgumentNullException(nameof(bound));
+
+        public virtual void Dispose()
         {
-            Bound = bound ?? throw new ArgumentNullException(nameof(bound));
         }
 
         /// <summary>
-        /// Does nothing.
+        ///     Does nothing.
         /// </summary>
-        public void Cache() { }
-        
-        public virtual void Dispose() { }
+        public void Cache()
+        {
+        }
 
         public abstract void Raise();
     }

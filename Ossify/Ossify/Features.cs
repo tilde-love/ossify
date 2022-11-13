@@ -10,17 +10,16 @@ namespace Ossify
     [DefaultExecutionOrder(-10000)]
     public sealed class Features : MonoBehaviour
     {
-        CancellationTokenSource cancelOnDisable;
-        private CancellationTokenSource CancelOnDisable => cancelOnDisable ??= new CancellationTokenSource();
-        
         [SerializeField] private Activation activation;
 
         [SerializeField] private Feature[] features;
+        private CancellationTokenSource cancelOnDisable;
+        private CancellationTokenSource CancelOnDisable => cancelOnDisable ??= new CancellationTokenSource();
 
-        async void OnEnable()
+        private async void OnEnable()
         {
-            var cancel = CancelOnDisable; // local copy
-            
+            CancellationTokenSource cancel = CancelOnDisable; // local copy
+
             try
             {
                 if (activation == null)
@@ -39,13 +38,16 @@ namespace Ossify
                         if (activationListener.Active == false)
                         {
                             await UniTask.WaitUntil(() => activationListener.Active, cancellationToken: cancel.Token);
-                            
+
                             continue;
                         }
 
-                        using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancel.Token);
+                        using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(cancel.Token);
 
-                        void OnExpire(Activation.Listener listener) => linked.Cancel();
+                        void OnExpire(Activation.Listener listener)
+                        {
+                            linked.Cancel();
+                        }
 
                         try
                         {
@@ -71,6 +73,13 @@ namespace Ossify
             }
         }
 
+        private void OnDisable()
+        {
+            cancelOnDisable?.Cancel();
+            cancelOnDisable?.Dispose();
+            cancelOnDisable = null;
+        }
+
         private async UniTask EnableFeatures(CancellationToken token)
         {
             try
@@ -82,31 +91,27 @@ namespace Ossify
             finally
             {
                 List<Exception> aggregateExceptions = null;
-                
+
                 foreach (Feature feature in features)
                 {
                     try
                     {
-                        if (feature != null) feature.Disable();
+                        if (feature != null)
+                        {
+                            feature.Disable();
+                        }
                     }
                     catch (Exception ex)
                     {
                         (aggregateExceptions ??= new List<Exception>()).Add(ex);
                     }
                 }
-                
+
                 if (aggregateExceptions != null)
                 {
                     throw new AggregateException(aggregateExceptions);
                 }
             }
-        }
-
-        void OnDisable()
-        {
-            cancelOnDisable?.Cancel();
-            cancelOnDisable?.Dispose();
-            cancelOnDisable = null;
         }
     }
 }

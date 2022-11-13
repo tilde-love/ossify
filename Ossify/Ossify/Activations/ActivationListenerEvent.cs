@@ -4,23 +4,22 @@ namespace Ossify.Activations
 {
     public sealed class ActivationListenerEvent : MonoBehaviour
     {
-        private Activation.Listener listener; 
-        
         [SerializeField] private Activation activation;
-        
+
         [SerializeField] private bool invert;
 
-        [SerializeField] private BoolEvent onActivation = new ();
+        [SerializeField] private BoolEvent onActivation = new();
+        private Activation.Listener listener;
 
         private void OnEnable()
         {
             GetListener();
-            
+
             OnActivationChanged(activation.Active);
         }
-        
-        private void OnDisable() => DisposeListener(); 
-        
+
+        private void OnDisable() => DisposeListener();
+
         private void GetListener()
         {
             if (listener is { IsExpired: true })
@@ -31,13 +30,12 @@ namespace Ossify.Activations
             if (listener == null)
             {
                 listener = activation.GetListener();
-                
+
                 listener.Changed += OnActivationChanged;
                 listener.Expired += OnExpired;
-                
             }
         }
-        
+
         private void DisposeListener()
         {
             listener?.Dispose();
@@ -49,7 +47,7 @@ namespace Ossify.Activations
             listener.Changed -= OnActivationChanged;
             listener.Expired -= OnExpired;
         }
-        
+
         private void OnActivationChanged(bool active) => onActivation.Invoke(active ^ invert);
     }
 }

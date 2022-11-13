@@ -5,15 +5,21 @@ namespace Ossify.Activations
 {
     public sealed class ActivationSetter : MonoBehaviour
     {
-        public enum Mode { Enable, Disable, Toggle }
+        public enum Mode
+        {
+            Enable,
+            Disable,
+            Toggle
+        }
 
         [SerializeField] private ActivationSet set;
-        
+
         [SerializeField] private Activation activation;
-        
+
         [SerializeField] private Mode mode;
-        
-        [SerializeField, DisableIf("@mode == Mode.Toggle")] private bool onEnableOnly = false;
+
+        [SerializeField, DisableIf("@mode == Mode.Toggle")]
+        private bool onEnableOnly;
 
         private void OnEnable()
         {
@@ -32,8 +38,10 @@ namespace Ossify.Activations
         private void OnDisable()
         {
             if (mode != Mode.Toggle && onEnableOnly)
+            {
                 return;
-            
+            }
+
             switch (mode)
             {
                 case Mode.Toggle:

@@ -6,7 +6,7 @@ namespace Ossify.Bindings.Specific.TMP
 {
     public class DropdownBinding<TEnum> : GetterSetterBinding<TMP_Dropdown, TEnum> where TEnum : Enum
     {
-        private readonly List<TEnum> values = new List<TEnum>();
+        private readonly List<TEnum> values = new();
 
         /// <inheritdoc />
         public DropdownBinding(TMP_Dropdown bound, Func<TEnum> getter, Action<TEnum> setter) : base(bound, getter, setter)
@@ -14,7 +14,7 @@ namespace Ossify.Bindings.Specific.TMP
             Bound.options.Clear();
             values.Clear();
 
-            foreach (var value in Enum.GetValues(typeof(TEnum)))
+            foreach (object value in Enum.GetValues(typeof(TEnum)))
             {
                 values.Add((TEnum)value);
                 Bound.options.Add(new TMP_Dropdown.OptionData(value.ToString()));
@@ -24,10 +24,10 @@ namespace Ossify.Bindings.Specific.TMP
         }
 
         /// <inheritdoc />
-        protected override void SetValue(TEnum value) => Bound.SetValueWithoutNotify(values.IndexOf(value));
+        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        protected override void SetValue(TEnum value) => Bound.SetValueWithoutNotify(values.IndexOf(value));
 
         private void InvokeValueChanged(int value) => InvokeValueChanged(values[value]);
     }

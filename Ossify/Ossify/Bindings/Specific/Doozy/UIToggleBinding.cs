@@ -12,19 +12,25 @@ namespace Ossify.Bindings.Specific.Doozy
             Bound.OnValueChangedCallback.AddListener(CheckAndInvokeValueChanged);
         }
 
-        private void CheckAndInvokeValueChanged(bool value)
-        {
-            if (Value != value) InvokeValueChanged(value);
-        }
+        /// <inheritdoc />
+        public override void Dispose() => Bound.OnValueChangedCallback.RemoveListener(CheckAndInvokeValueChanged);
 
         /// <inheritdoc />
         protected override void SetValue(bool value)
         {
-            if (Bound.isOn != value) Bound.SetIsOn(value);
+            if (Bound.isOn != value)
+            {
+                Bound.SetIsOn(value);
+            }
         }
 
-        /// <inheritdoc />
-        public override void Dispose() => Bound.OnValueChangedCallback.RemoveListener(CheckAndInvokeValueChanged);
+        private void CheckAndInvokeValueChanged(bool value)
+        {
+            if (Value != value)
+            {
+                InvokeValueChanged(value);
+            }
+        }
     }
 }
 #endif

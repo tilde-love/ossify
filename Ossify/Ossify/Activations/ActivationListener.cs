@@ -6,27 +6,29 @@ namespace Ossify.Activations
 {
     public sealed class ActivationListener : MonoBehaviour
     {
-        private bool isBeingDestroyed = false;
+        [SerializeField] private Activation activation;
+
+        [SerializeField] private bool invert;
+        private bool isBeingDestroyed;
 
         private Activation.Listener listener;
-        
-        [SerializeField] private Activation activation;
-        
-        [SerializeField] private bool invert;
 
         private void Awake() => GetListener();
-        
+
         private void OnEnable()
         {
             GetListener();
-            
-            if (activation != null) OnActivationChanged(activation.Active);
+
+            if (activation != null)
+            {
+                OnActivationChanged(activation.Active);
+            }
         }
 
         private void OnDestroy()
         {
-            isBeingDestroyed = true; 
-            
+            isBeingDestroyed = true;
+
             DisposeListener();
 
             isBeingDestroyed = false;
@@ -54,7 +56,7 @@ namespace Ossify.Activations
             listener.Changed += OnActivationChanged;
             listener.Expired += OnExpired;
         }
-        
+
         private void DisposeListener()
         {
             listener?.Dispose();
@@ -66,9 +68,12 @@ namespace Ossify.Activations
             listener.Changed -= OnActivationChanged;
             listener.Expired -= OnExpired;
 
-            if (this != null && isBeingDestroyed == false) gameObject.SetActive(true);
+            if (this != null && isBeingDestroyed == false)
+            {
+                gameObject.SetActive(true);
+            }
         }
-        
+
         private void OnActivationChanged(bool active) => gameObject.SetActive(active ^ invert);
     }
 

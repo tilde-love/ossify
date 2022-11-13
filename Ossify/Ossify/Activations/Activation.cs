@@ -14,9 +14,9 @@ namespace Ossify.Activations
 
         private readonly List<Listener> listeners = new();
 
-        [NonSerialized] private int active;
-
         [NonSerialized] private readonly List<IDisposable> references = new();
+
+        [NonSerialized] private int active;
 
         [ShowInInspector]
         public bool Active => active > 0;
@@ -32,7 +32,7 @@ namespace Ossify.Activations
 
         public Listener GetListener()
         {
-            Listener listener = new Listener(this);
+            Listener listener = new(this);
 
             listener.Expired += ListenerOnExpired;
 
@@ -108,17 +108,44 @@ namespace Ossify.Activations
             }
         }
 
+        public async UniTask WaitUntilActive(CancellationToken cancelOnDisableToken)
+        {
+            if (Active)
+            {
+                return;
+            }
+
+            using Listener listener = GetListener();
+
+            using CancellationTokenSource cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancelOnDisableToken, listener.CancellationToken);
+
+            await UniTask.WaitUntil(() => Active, cancellationToken: cancellationTokenSource.Token);
+        }
+
+        public async UniTask WaitUntilInactive(CancellationToken cancelOnDisableToken)
+        {
+            if (Active == false)
+            {
+                return;
+            }
+
+            using Listener listener = GetListener();
+
+            using CancellationTokenSource cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancelOnDisableToken, listener.CancellationToken);
+
+            await UniTask.WaitUntil(() => Active == false, cancellationToken: cancellationTokenSource.Token);
+        }
+
         public sealed class Listener : IDisposable
         {
+            private readonly CancellationTokenSource cancellationTokenSource = new();
             private readonly Activation source;
-            
-            private readonly CancellationTokenSource cancellationTokenSource = new ();
+
+            public bool Active => source.Active;
 
             public CancellationToken CancellationToken => cancellationTokenSource.Token;
-            
+
             public bool IsExpired { get; private set; }
-            
-            public bool Active => source.Active;
 
             internal Listener(Activation source) => this.source = source;
 
@@ -132,7 +159,7 @@ namespace Ossify.Activations
                 IsExpired = true;
 
                 cancellationTokenSource.Cancel();
-                
+
                 Expired?.Invoke(this);
             }
 
@@ -208,34 +235,6 @@ namespace Ossify.Activations
 
                 activation.RemoveReference(this);
             }
-        }
-
-        public async UniTask WaitUntilActive(CancellationToken cancelOnDisableToken)
-        {
-            if (Active)
-            {
-                return;
-            }
-            
-            using Listener listener = GetListener();
-
-            using CancellationTokenSource cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancelOnDisableToken, listener.CancellationToken);
-
-            await UniTask.WaitUntil(() => Active, cancellationToken: cancellationTokenSource.Token);
-        }
-        
-        public async UniTask WaitUntilInactive(CancellationToken cancelOnDisableToken)
-        {
-            if (Active == false)
-            {
-                return;
-            }
-            
-            using Listener listener = GetListener();
-
-            using CancellationTokenSource cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancelOnDisableToken, listener.CancellationToken);
-
-            await UniTask.WaitUntil(() => Active == false, cancellationToken: cancellationTokenSource.Token);
         }
     }
 }

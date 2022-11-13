@@ -8,41 +8,40 @@ namespace Ossify.Activations
 {
     public sealed class ActivationActivatorListener : MonoBehaviour
     {
-        private CancellationTokenSource cancelOnDisabled;
-        
-        private CancellationToken CancelOnDisabledToken => (cancelOnDisabled ??= new CancellationTokenSource()).Token;
-        
         [SerializeField] private Activation activation;
-        
+
         [SerializeField] private Activation[] toActivate;
+        private CancellationTokenSource cancelOnDisabled;
+
+        private CancellationToken CancelOnDisabledToken => (cancelOnDisabled ??= new CancellationTokenSource()).Token;
 
         private async void OnEnable()
         {
-            var cancelToken = CancelOnDisabledToken;
+            CancellationToken cancelToken = CancelOnDisabledToken;
 
-            Activation.Listener listener = null; 
-            
-            List<Activation.Reference> refs = new ();
-            
+            Activation.Listener listener = null;
+
+            List<Activation.Reference> refs = new();
+
             try
             {
-                foreach (var active in toActivate)
+                foreach (Activation active in toActivate)
                 {
                     refs.Add(active.GetReference(false));
                 }
-                
+
                 while (cancelToken.IsCancellationRequested == false)
                 {
                     if (listener?.IsExpired ?? true)
                     {
                         listener?.Dispose();
-                        
+
                         listener = activation.GetListener();
                     }
 
                     bool state = listener.Active;
-                    
-                    foreach (var r in refs)
+
+                    foreach (Activation.Reference r in refs)
                     {
                         r.Active = state;
                     }
@@ -52,17 +51,16 @@ namespace Ossify.Activations
             }
             catch (Exception ex) when (ex.IsCancellation())
             {
-
             }
             finally
             {
                 listener?.Dispose();
-                
-                foreach (var r in refs)
+
+                foreach (Activation.Reference r in refs)
                 {
                     r.Dispose();
                 }
-            
+
                 refs.Clear();
             }
         }

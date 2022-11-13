@@ -7,11 +7,11 @@ namespace Ossify.Bindings.Specific.Unity
     [RequireComponent(typeof(Image))]
     public sealed class ImageToSpriteBinder : MonoBehaviour
     {
-        [SerializeField] SpriteVariable variable;
+        [SerializeField] private SpriteVariable variable;
         private ImageBinding binding;
         private Image image;
-        
-        void Awake()
+
+        private void Awake()
         {
             image = GetComponent<Image>();
             binding = new ImageBinding(image, Getter);
@@ -23,7 +23,7 @@ namespace Ossify.Bindings.Specific.Unity
 
             OnValueChanged(variable.Value);
         }
-        
+
         private void OnDisable() => variable.ValueChanged -= OnValueChanged;
 
         private Sprite Getter() => variable.Value;

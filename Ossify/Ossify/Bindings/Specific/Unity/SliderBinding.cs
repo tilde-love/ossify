@@ -6,14 +6,14 @@ namespace Ossify.Bindings.Specific.Unity
     public class SliderBinding : GetterSetterBinding<Slider, float>
     {
         /// <inheritdoc />
-        public SliderBinding(Slider bound, Func<float> getter, Action<float> setter) 
+        public SliderBinding(Slider bound, Func<float> getter, Action<float> setter)
             : base(bound, getter, setter) =>
             Bound.onValueChanged.AddListener(InvokeValueChanged);
 
         /// <inheritdoc />
-        protected override void SetValue(float value) => Bound.SetValueWithoutNotify(value);
+        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        protected override void SetValue(float value) => Bound.SetValueWithoutNotify(value);
     }
 }

@@ -7,11 +7,11 @@ namespace Ossify.Bindings.Specific.Unity
     [RequireComponent(typeof(Image))]
     public sealed class FilledImageToFloatBinder : MonoBehaviour
     {
-        [SerializeField] FloatVariable variable;
+        [SerializeField] private FloatVariable variable;
         private FilledImageBinding binding;
         private Image image;
-        
-        void Awake()
+
+        private void Awake()
         {
             image = GetComponent<Image>();
             binding = new FilledImageBinding(image, Getter);
@@ -23,7 +23,7 @@ namespace Ossify.Bindings.Specific.Unity
 
             OnValueChanged(variable.Value);
         }
-        
+
         private void OnDisable() => variable.ValueChanged -= OnValueChanged;
 
         private float Getter() => variable.Value;

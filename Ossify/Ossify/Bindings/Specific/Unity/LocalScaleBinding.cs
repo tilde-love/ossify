@@ -12,11 +12,11 @@ namespace Ossify.Bindings.Specific.Unity
         }
 
         /// <inheritdoc />
-        protected override void SetValue(float value) => Bound.localScale = new Vector3(value, value, value);
-
-        /// <inheritdoc />
         public override void Dispose()
         {
         }
+
+        /// <inheritdoc />
+        protected override void SetValue(float value) => Bound.localScale = new Vector3(value, value, value);
     }
 }

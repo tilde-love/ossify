@@ -2,7 +2,7 @@ using System;
 using Ossify.Variables;
 using Sirenix.OdinInspector;
 
-namespace TildeLove.Basics
+namespace Ossify.Variables
 {
     [Serializable, InlineProperty]
     public abstract class Reference<T, T1> where T1 : IVariable<T>

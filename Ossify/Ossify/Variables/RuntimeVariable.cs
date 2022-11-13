@@ -6,23 +6,23 @@ using UnityEngine;
 
 namespace Ossify.Variables
 {
-    public abstract class RuntimeVariable<T> : ScriptableObject, IVariable<T> where T : class 
+    public abstract class RuntimeVariable<T> : ScriptableObject, IVariable<T> where T : class
     {
         [SerializeField, TextArea] private string comment;
-        
-        private T value; 
-        
+
+        private T value;
+
         public event Action<T> ValueChanged;
-        
-        [ShowInInspector, OnValueChanged(nameof(OnEditorValueChanged))] 
+
+        [ShowInInspector, OnValueChanged(nameof(OnEditorValueChanged))]
         public T Value
         {
             get => value;
             set
             {
                 this.value = value;
-                
-                ValueChanged?.Invoke(value); 
+
+                ValueChanged?.Invoke(value);
             }
         }
 
@@ -33,11 +33,14 @@ namespace Ossify.Variables
                 ValueChanged?.Invoke(value);
             }
         }
-        
+
         public async UniTask<T> WaitForValue(CancellationToken cancellationToken)
         {
-            if (Value != null) return Value;
-            
+            if (Value != null)
+            {
+                return Value;
+            }
+
             await UniTask.WaitUntil(() => Value != null, cancellationToken: cancellationToken);
 
             return Value;
