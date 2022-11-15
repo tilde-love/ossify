@@ -84,7 +84,7 @@ namespace Ossify
         {
             try
             {
-                await UniTask.WhenAll(features.Select(f => f.Enable(token)));
+                await UniTask.WhenAll(features.Select(f => f != null ? f.Enable(token) : UniTask.CompletedTask));
 
                 await UniTask.WaitUntilCanceled(token);
             }
