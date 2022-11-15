@@ -7,15 +7,22 @@ namespace Ossify.Variables
     [Serializable, InlineProperty]
     public abstract class Reference<T, T1> where T1 : IVariable<T>
     {
-        [HideLabel, HorizontalGroup("value", Width = 20), PropertyOrder(10)]
+        [HideLabel, HorizontalGroup("source", Width = 20), PropertyOrder(10)]
         public bool UseConstant = true;
         
-        [ShowIf(nameof(UseConstant)), HideLabel, HorizontalGroup("value"), PropertyOrder(0)]
+        [ShowIf(nameof(UseConstant)), HideLabel, HorizontalGroup("source"), PropertyOrder(0)]
         public T ConstantValue;
         
-        [HideIf(nameof(UseConstant)), HideLabel, HorizontalGroup("value"), PropertyOrder(0)]
+        [HideIf(nameof(UseConstant)), HideLabel, HorizontalGroup("source"), PropertyOrder(0)]
         public T1 Variable;
-
+        
+        [HideIf(nameof(UseConstant)), ShowInInspector, HideLabel, HorizontalGroup("value"), PropertyOrder(20)]
+        private T EditorValue
+        {
+            get => Get();
+            set => Set(value);
+        }
+        
         public T Value
         {
             get => Get();

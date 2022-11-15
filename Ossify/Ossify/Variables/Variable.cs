@@ -8,7 +8,7 @@ namespace Ossify.Variables
     {
         [SerializeField, TextArea] private string comment;
 
-        [SerializeField, OnValueChanged(nameof(OnEditorValueChanged))]
+        [SerializeField, HideLabel, InlineProperty, OnValueChanged(nameof(OnEditorValueChanged))]
         private T value;
 
         public event Action<T> ValueChanged;
