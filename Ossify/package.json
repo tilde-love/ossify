@@ -2,7 +2,7 @@
     "name": "love.tilde.ossify",
     "displayName": "Ossify",
     "author": { "name": "Tilde Love", "url": "https://tilde.love" },
-    "version": "0.0.1",
+    "version": "0.0.2",
     "unity": "2021.3",
     "description": "Ossify gives your project bones. A data binding methodology.",
     "keywords": [ "project", "data", "model", "view", "binding" ],
