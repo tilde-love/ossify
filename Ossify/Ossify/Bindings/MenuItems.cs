@@ -84,6 +84,25 @@ namespace Ossify.Bindings
             EditorUtility.SetDirty(parent);
         }
         
+        [MenuItem("CONTEXT/TextMeshProUGUI/Bind Formatted To Float Variable", priority = 1000)]
+        public static void TextBindToFloatVariable(MenuCommand menuCommand)
+        {
+            GameObject parent = ((Component)menuCommand.context).gameObject;
+
+            if (parent.TryGetComponent<TextToFloatVariableBinder>(out TextToFloatVariableBinder binder))
+            {
+                Debug.LogWarning("This object already has a TextToFloatVariableBinder");
+
+                return;
+            }
+
+            binder = parent.AddComponent<TextToFloatVariableBinder>();
+
+            Undo.RegisterCreatedObjectUndo(binder, "Bind Formatted To Float Variable");
+
+            EditorUtility.SetDirty(parent);
+        }
+        
         [MenuItem("CONTEXT/Image/Bind Fill To Float Variable", priority = 1000)]
         public static void FilledImageBindToFloatVariable(MenuCommand menuCommand)
         {
@@ -102,8 +121,6 @@ namespace Ossify.Bindings
 
             EditorUtility.SetDirty(parent);
         }
-
-        
     }
 }
 
