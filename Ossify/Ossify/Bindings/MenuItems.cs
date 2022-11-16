@@ -83,6 +83,27 @@ namespace Ossify.Bindings
 
             EditorUtility.SetDirty(parent);
         }
+        
+        [MenuItem("CONTEXT/Image/Bind Fill To Float Variable", priority = 1000)]
+        public static void FilledImageBindToFloatVariable(MenuCommand menuCommand)
+        {
+            GameObject parent = ((Component)menuCommand.context).gameObject;
+
+            if (parent.TryGetComponent<FilledImageToFloatBinder>(out FilledImageToFloatBinder binder))
+            {
+                Debug.LogWarning("This object already has a FilledImageToFloatBinder");
+
+                return;
+            }
+
+            binder = parent.AddComponent<FilledImageToFloatBinder>();
+
+            Undo.RegisterCreatedObjectUndo(binder, "Bind Fill To Float Variable");
+
+            EditorUtility.SetDirty(parent);
+        }
+
+        
     }
 }
 
