@@ -40,14 +40,8 @@ namespace Ossify.Bindings.Specific.TMP
             }
 
             this.value = value;
-
-            bound.gameObject.SetActive(false);
-
+            
             bound.text = string.Format(format.Value, value);
-
-            bound.gameObject.SetActive(true);
-
-            bound.ForceMeshUpdate(true);
 
             onValueChanged.Invoke(value);
         }

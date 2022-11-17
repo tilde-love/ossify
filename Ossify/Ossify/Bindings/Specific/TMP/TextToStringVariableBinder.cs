@@ -31,14 +31,8 @@ namespace Ossify.Bindings.Specific.TMP
             {
                 return;
             }
-
-            bound.gameObject.SetActive(false);
-
+            
             bound.text = value;
-
-            bound.gameObject.SetActive(true);
-
-            bound.ForceMeshUpdate(true);
 
             onValueChanged.Invoke(value);
         }

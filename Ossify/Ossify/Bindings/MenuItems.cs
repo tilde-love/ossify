@@ -121,6 +121,26 @@ namespace Ossify.Bindings
 
             EditorUtility.SetDirty(parent);
         }
+        
+        [MenuItem("CONTEXT/Button/Bind To Pulse", priority = 1000)]
+        public static void ButtonToPulseBinder(MenuCommand menuCommand)
+        {
+            GameObject parent = ((Component)menuCommand.context).gameObject;
+
+            if (parent.TryGetComponent<ButtonToPulseBinder>(out ButtonToPulseBinder binder))
+            {
+                Debug.LogWarning("This object already has a ButtonToPulseBinder");
+
+                return;
+            }
+
+            binder = parent.AddComponent<ButtonToPulseBinder>();
+
+            Undo.RegisterCreatedObjectUndo(binder, "Bind To Pulse");
+
+            EditorUtility.SetDirty(parent);
+        }
+        
     }
 }
 

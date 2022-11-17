@@ -44,6 +44,25 @@ namespace Ossify.Bindings.Specific.Doozy
 
             EditorUtility.SetDirty(parent);
         }
+        
+        [MenuItem("CONTEXT/UIButton/Bind To Pulse", priority = 1000)]
+        public static void ButtonToPulseBinder(MenuCommand menuCommand)
+        {
+            GameObject parent = ((Component)menuCommand.context).gameObject;
+
+            if (parent.TryGetComponent<UIButtonToPulseBinder>(out UIButtonToPulseBinder binder))
+            {
+                Debug.LogWarning("This object already has a UIButtonToPulseBinder");
+
+                return;
+            }
+
+            binder = parent.AddComponent<UIButtonToPulseBinder>();
+
+            Undo.RegisterCreatedObjectUndo(binder, "Bind To Pulse");
+
+            EditorUtility.SetDirty(parent);
+        }
     }
 }
 

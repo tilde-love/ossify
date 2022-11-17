@@ -40,7 +40,7 @@ namespace Ossify.Variables
                 Variable.Value = value;
         }
         
-        public T Get() => UseConstant ? ConstantValue : Variable.Value;
+        public T Get() => UseConstant ? ConstantValue : Variable != null ? Variable.Value : default;
 
         public event Action<T> ValueChanged
         {
