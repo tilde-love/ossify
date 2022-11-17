@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Ossify.Activations
 {
-    public sealed class ActivationListenerEvent : MonoBehaviour
+    public sealed class ActivationEvents : MonoBehaviour
     {
         [SerializeField] private Activation activation;
 
-        [SerializeField] private bool invert;
+        [FormerlySerializedAs("onActivation"),SerializeField] private BoolEvent onActivationChanged = new();
+        [SerializeField] private UnityEvent onActivated = new();
+        [SerializeField] private UnityEvent onDeactivated = new();
 
-        [SerializeField] private BoolEvent onActivation = new();
         private Activation.Listener listener;
 
         private void OnEnable()
@@ -48,6 +51,18 @@ namespace Ossify.Activations
             listener.Expired -= OnExpired;
         }
 
-        private void OnActivationChanged(bool active) => onActivation.Invoke(active ^ invert);
+        private void OnActivationChanged(bool active)
+        {
+            onActivationChanged.Invoke(active);
+            
+            if (active)
+            {
+                onActivated.Invoke();
+            }
+            else
+            {
+                onDeactivated.Invoke();
+            }
+        }
     }
 }
