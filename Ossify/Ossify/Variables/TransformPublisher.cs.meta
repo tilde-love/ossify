@@ -1,3 +1,11 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 2c50e99a2d8545f5912f7c62be66db5c
-timeCreated: 1667436053
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 7557da868f3fb29459630864274c6727, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

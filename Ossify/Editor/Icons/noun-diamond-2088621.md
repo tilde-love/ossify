@@ -1,0 +1,1 @@
+Diamond by Ruslan Mirsalikhov from <a href="https://thenounproject.com/browse/icons/term/diamond/" target="_blank" title="Diamond Icons">Noun Project</a>

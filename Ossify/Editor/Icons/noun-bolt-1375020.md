@@ -1,0 +1,1 @@
+bolt by IconMark from <a href="https://thenounproject.com/browse/icons/term/bolt/" target="_blank" title="bolt Icons">Noun Project</a>

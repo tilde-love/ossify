@@ -1,0 +1,1 @@
+Asterisk by Adrien Coquet from <a href="https://thenounproject.com/browse/icons/term/asterisk/" target="_blank" title="Asterisk Icons">Noun Project</a>
