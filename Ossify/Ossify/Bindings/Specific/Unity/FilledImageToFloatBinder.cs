@@ -1,5 +1,4 @@
 ﻿using Ossify.Variables;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +8,13 @@ namespace Ossify.Bindings.Specific.Unity
     public sealed class FilledImageToFloatBinder : MonoBehaviour
     {
         [SerializeField] private FloatReference variable;
-        
-        [SerializeField] private FloatReference minValue = new () { Value = 0 };
-        [SerializeField] private FloatReference maxValue = new () { Value = 1 };
-        
-        [SerializeField] private FloatReference minFill = new () { Value = 0 };
-        [SerializeField] private FloatReference maxFill = new () { Value = 1 };
-        
+
+        [SerializeField] private FloatReference minValue = new() { Value = 0 };
+        [SerializeField] private FloatReference maxValue = new() { Value = 1 };
+
+        [SerializeField] private FloatReference minFill = new() { Value = 0 };
+        [SerializeField] private FloatReference maxFill = new() { Value = 1 };
+
         private FilledImageBinding binding;
         private Image image;
 
@@ -48,10 +47,12 @@ namespace Ossify.Bindings.Specific.Unity
             );
 
         private void OnValueChanged(float value) => binding.Cache();
-        
-        static float Remap (float value, float min, float newMin, float max, float newMax) 
-        {
-            return newMin + (value - min) * (newMax - newMin) / (max - min);
-        }
+
+        private static float Remap(
+            float value,
+            float min,
+            float newMin,
+            float max,
+            float newMax) => newMin + (value - min) * (newMax - newMin) / (max - min);
     }
 }

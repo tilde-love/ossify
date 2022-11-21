@@ -7,12 +7,31 @@ namespace Ossify.Bindings.Specific.Doozy
 {
     internal static class MenuItems
     {
+        [MenuItem("CONTEXT/UIButton/Bind To Pulse", priority = 1000)]
+        public static void ButtonToPulseBinder(MenuCommand menuCommand)
+        {
+            GameObject parent = ((Component)menuCommand.context).gameObject;
+
+            if (parent.TryGetComponent(out UIButtonToPulseBinder binder))
+            {
+                Debug.LogWarning("This object already has a UIButtonToPulseBinder");
+
+                return;
+            }
+
+            binder = parent.AddComponent<UIButtonToPulseBinder>();
+
+            Undo.RegisterCreatedObjectUndo(binder, "Bind To Pulse");
+
+            EditorUtility.SetDirty(parent);
+        }
+
         [MenuItem("CONTEXT/UISlider/Bind To Float Variable", priority = 1000)]
         public static void UISliderBindToFloatVariable(MenuCommand menuCommand)
         {
             GameObject parent = (menuCommand.context as UISlider)?.gameObject;
 
-            if (parent.TryGetComponent<UISliderToFloatVariableBinder>(out UISliderToFloatVariableBinder binder))
+            if (parent.TryGetComponent(out UISliderToFloatVariableBinder binder))
             {
                 Debug.LogWarning("This object already has a UISliderToFloatVariableBinder");
 
@@ -31,7 +50,7 @@ namespace Ossify.Bindings.Specific.Doozy
         {
             GameObject parent = (menuCommand.context as UISlider)?.gameObject;
 
-            if (parent.TryGetComponent<UISliderToIntVariableBinder>(out UISliderToIntVariableBinder binder))
+            if (parent.TryGetComponent(out UISliderToIntVariableBinder binder))
             {
                 Debug.LogWarning("This object already has a UISliderToIntVariableBinder");
 
@@ -41,25 +60,6 @@ namespace Ossify.Bindings.Specific.Doozy
             binder = parent.AddComponent<UISliderToIntVariableBinder>();
 
             Undo.RegisterCreatedObjectUndo(binder, "Bind To String Variable");
-
-            EditorUtility.SetDirty(parent);
-        }
-        
-        [MenuItem("CONTEXT/UIButton/Bind To Pulse", priority = 1000)]
-        public static void ButtonToPulseBinder(MenuCommand menuCommand)
-        {
-            GameObject parent = ((Component)menuCommand.context).gameObject;
-
-            if (parent.TryGetComponent<UIButtonToPulseBinder>(out UIButtonToPulseBinder binder))
-            {
-                Debug.LogWarning("This object already has a UIButtonToPulseBinder");
-
-                return;
-            }
-
-            binder = parent.AddComponent<UIButtonToPulseBinder>();
-
-            Undo.RegisterCreatedObjectUndo(binder, "Bind To Pulse");
 
             EditorUtility.SetDirty(parent);
         }

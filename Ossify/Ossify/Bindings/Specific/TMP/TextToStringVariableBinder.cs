@@ -31,7 +31,7 @@ namespace Ossify.Bindings.Specific.TMP
             {
                 return;
             }
-            
+
             bound.text = value;
 
             onValueChanged.Invoke(value);

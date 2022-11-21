@@ -8,10 +8,10 @@ namespace Ossify.Variables
         where TVariable : Variable<TValue>
         where TReference : Reference<TValue, TVariable>
     {
-        [FormerlySerializedAs("variable"),SerializeField] private TReference reference;
+        [FormerlySerializedAs("variable"), SerializeField]
+        private TReference reference;
+
         [SerializeField, HideInInspector] private TValue value;
-        
-        public void SetValue(TValue value) => Value = value;
 
         [ShowInInspector]
         public TValue Value
@@ -23,7 +23,9 @@ namespace Ossify.Variables
                 reference.Value = value;
             }
         }
-        
+
         private void OnEnable() => reference.Value = value;
+
+        public void SetValue(TValue value) => Value = value;
     }
 }

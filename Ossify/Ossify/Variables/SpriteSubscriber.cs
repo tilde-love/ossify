@@ -2,5 +2,7 @@
 
 namespace Ossify.Variables
 {
-    public sealed class SpriteSubscriber : Subscriber<Sprite, SpriteVariable> { }
+    public sealed class SpriteSubscriber : Subscriber<Sprite, SpriteVariable>
+    {
+    }
 }

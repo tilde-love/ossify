@@ -10,21 +10,21 @@ namespace Ossify.Bindings.Specific.TMP
     public sealed class TextToFloatVariableBinder : MonoBehaviour
     {
         [SerializeField] private FloatVariable variable;
-        
-        private float? value;
-        
-        [SerializeField] private StringReference format = new () { Value = "{0}" };
+
+        [SerializeField] private StringReference format = new() { Value = "{0}" };
 
         [SerializeField] private FloatEvent onValueChanged = new();
-        
+
         private TMP_Text bound;
+
+        private float? value;
 
         private void Awake() => bound = GetComponent<TMP_Text>();
 
         private void OnEnable()
         {
-            value = null; 
-            
+            value = null;
+
             variable.ValueChanged += OnValueChanged;
 
             OnValueChanged(variable.Value);
@@ -40,12 +40,12 @@ namespace Ossify.Bindings.Specific.TMP
             }
 
             this.value = value;
-            
+
             bound.text = string.Format(format.Value, value);
 
             onValueChanged.Invoke(value);
         }
-        
+
         [Serializable]
         public sealed class FloatEvent : UnityEvent<float>
         {

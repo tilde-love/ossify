@@ -1,7 +1,6 @@
-﻿using Sirenix.OdinInspector;
-using UnityEngine;
-
-namespace Ossify.Variables
+﻿namespace Ossify.Variables
 {
-    public sealed class FloatPublisher : Publisher<float, FloatVariable, FloatReference>  { }
+    public sealed class FloatPublisher : Publisher<float, FloatVariable, FloatReference>
+    {
+    }
 }

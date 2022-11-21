@@ -21,7 +21,6 @@ namespace Ossify
              + "If you drop a bin on another bin it will be merged into the target bin.\n"
              + "\n"
          ), ShowInInspector, AssetsOnly, LabelText("DROP ITEMS HERE")]
-        
         private List<ScriptableObject> items = new();
 
 #if UNITY_EDITOR

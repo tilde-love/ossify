@@ -13,7 +13,7 @@ namespace Ossify.Bindings
         {
             GameObject parent = ((Component)menuCommand.context).gameObject;
 
-            if (parent.TryGetComponent<ButtonToPulseBinder>(out ButtonToPulseBinder binder))
+            if (parent.TryGetComponent(out ButtonToPulseBinder binder))
             {
                 Debug.LogWarning("This object already has a ButtonToPulseBinder");
 
@@ -27,12 +27,50 @@ namespace Ossify.Bindings
             EditorUtility.SetDirty(parent);
         }
 
+        [MenuItem("CONTEXT/Button/Bind To Pulse", priority = 1000)]
+        public static void ButtonToPulseBinder(MenuCommand menuCommand)
+        {
+            GameObject parent = ((Component)menuCommand.context).gameObject;
+
+            if (parent.TryGetComponent(out ButtonToPulseBinder binder))
+            {
+                Debug.LogWarning("This object already has a ButtonToPulseBinder");
+
+                return;
+            }
+
+            binder = parent.AddComponent<ButtonToPulseBinder>();
+
+            Undo.RegisterCreatedObjectUndo(binder, "Bind To Pulse");
+
+            EditorUtility.SetDirty(parent);
+        }
+
+        [MenuItem("CONTEXT/Image/Bind Fill To Float Variable", priority = 1000)]
+        public static void FilledImageBindToFloatVariable(MenuCommand menuCommand)
+        {
+            GameObject parent = ((Component)menuCommand.context).gameObject;
+
+            if (parent.TryGetComponent(out FilledImageToFloatBinder binder))
+            {
+                Debug.LogWarning("This object already has a FilledImageToFloatBinder");
+
+                return;
+            }
+
+            binder = parent.AddComponent<FilledImageToFloatBinder>();
+
+            Undo.RegisterCreatedObjectUndo(binder, "Bind Fill To Float Variable");
+
+            EditorUtility.SetDirty(parent);
+        }
+
         [MenuItem("CONTEXT/Image/Bind To Sprite Variable", priority = 1000)]
         public static void ImageBindToSpriteVariable(MenuCommand menuCommand)
         {
             GameObject parent = ((Component)menuCommand.context).gameObject;
 
-            if (parent.TryGetComponent<ImageToSpriteBinder>(out ImageToSpriteBinder binder))
+            if (parent.TryGetComponent(out ImageToSpriteBinder binder))
             {
                 Debug.LogWarning("This object already has a ImageToSpriteBinder");
 
@@ -51,7 +89,7 @@ namespace Ossify.Bindings
         {
             GameObject parent = ((Component)menuCommand.context).gameObject;
 
-            if (parent.TryGetComponent<InputFieldToStringVariableBinder>(out InputFieldToStringVariableBinder binder))
+            if (parent.TryGetComponent(out InputFieldToStringVariableBinder binder))
             {
                 Debug.LogWarning("This object already has a InputFieldToStringVariableBinder");
 
@@ -65,31 +103,12 @@ namespace Ossify.Bindings
             EditorUtility.SetDirty(parent);
         }
 
-        [MenuItem("CONTEXT/TextMeshProUGUI/Bind To String Variable", priority = 1000)]
-        public static void TextBindToStringVariable(MenuCommand menuCommand)
-        {
-            GameObject parent = ((Component)menuCommand.context).gameObject;
-
-            if (parent.TryGetComponent<TextToStringVariableBinder>(out TextToStringVariableBinder binder))
-            {
-                Debug.LogWarning("This object already has a TextToStringVariableBinder");
-
-                return;
-            }
-
-            binder = parent.AddComponent<TextToStringVariableBinder>();
-
-            Undo.RegisterCreatedObjectUndo(binder, "Bind To String Variable");
-
-            EditorUtility.SetDirty(parent);
-        }
-        
         [MenuItem("CONTEXT/TextMeshProUGUI/Bind Formatted To Float Variable", priority = 1000)]
         public static void TextBindToFloatVariable(MenuCommand menuCommand)
         {
             GameObject parent = ((Component)menuCommand.context).gameObject;
 
-            if (parent.TryGetComponent<TextToFloatVariableBinder>(out TextToFloatVariableBinder binder))
+            if (parent.TryGetComponent(out TextToFloatVariableBinder binder))
             {
                 Debug.LogWarning("This object already has a TextToFloatVariableBinder");
 
@@ -102,45 +121,25 @@ namespace Ossify.Bindings
 
             EditorUtility.SetDirty(parent);
         }
-        
-        [MenuItem("CONTEXT/Image/Bind Fill To Float Variable", priority = 1000)]
-        public static void FilledImageBindToFloatVariable(MenuCommand menuCommand)
+
+        [MenuItem("CONTEXT/TextMeshProUGUI/Bind To String Variable", priority = 1000)]
+        public static void TextBindToStringVariable(MenuCommand menuCommand)
         {
             GameObject parent = ((Component)menuCommand.context).gameObject;
 
-            if (parent.TryGetComponent<FilledImageToFloatBinder>(out FilledImageToFloatBinder binder))
+            if (parent.TryGetComponent(out TextToStringVariableBinder binder))
             {
-                Debug.LogWarning("This object already has a FilledImageToFloatBinder");
+                Debug.LogWarning("This object already has a TextToStringVariableBinder");
 
                 return;
             }
 
-            binder = parent.AddComponent<FilledImageToFloatBinder>();
+            binder = parent.AddComponent<TextToStringVariableBinder>();
 
-            Undo.RegisterCreatedObjectUndo(binder, "Bind Fill To Float Variable");
-
-            EditorUtility.SetDirty(parent);
-        }
-        
-        [MenuItem("CONTEXT/Button/Bind To Pulse", priority = 1000)]
-        public static void ButtonToPulseBinder(MenuCommand menuCommand)
-        {
-            GameObject parent = ((Component)menuCommand.context).gameObject;
-
-            if (parent.TryGetComponent<ButtonToPulseBinder>(out ButtonToPulseBinder binder))
-            {
-                Debug.LogWarning("This object already has a ButtonToPulseBinder");
-
-                return;
-            }
-
-            binder = parent.AddComponent<ButtonToPulseBinder>();
-
-            Undo.RegisterCreatedObjectUndo(binder, "Bind To Pulse");
+            Undo.RegisterCreatedObjectUndo(binder, "Bind To String Variable");
 
             EditorUtility.SetDirty(parent);
         }
-        
     }
 }
 

@@ -9,9 +9,9 @@ namespace Ossify.Bindings.Specific.Doozy
     public sealed class UIButtonToPulseBinder : MonoBehaviour
     {
         [SerializeField] private Pulse pulse;
+        private UIButtonBinding binding;
         private UIButton bound;
-        private UIButtonBinding binding;            
- 
+
         private void Awake() => bound = GetComponent<UIButton>();
 
         private void OnEnable() => binding = new UIButtonBinding(bound, OnClicked);

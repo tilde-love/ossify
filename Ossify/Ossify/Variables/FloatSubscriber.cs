@@ -1,4 +1,6 @@
 ﻿namespace Ossify.Variables
 {
-    public sealed class FloatSubscriber : Subscriber<float, FloatVariable> { }
+    public sealed class FloatSubscriber : Subscriber<float, FloatVariable>
+    {
+    }
 }

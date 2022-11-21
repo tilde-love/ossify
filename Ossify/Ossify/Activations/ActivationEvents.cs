@@ -8,7 +8,9 @@ namespace Ossify.Activations
     {
         [SerializeField] private Activation activation;
 
-        [FormerlySerializedAs("onActivation"),SerializeField] private BoolEvent onActivationChanged = new();
+        [FormerlySerializedAs("onActivation"), SerializeField]
+        private BoolEvent onActivationChanged = new();
+
         [SerializeField] private UnityEvent onActivated = new();
         [SerializeField] private UnityEvent onDeactivated = new();
 
@@ -54,7 +56,7 @@ namespace Ossify.Activations
         private void OnActivationChanged(bool active)
         {
             onActivationChanged.Invoke(active);
-            
+
             if (active)
             {
                 onActivated.Invoke();

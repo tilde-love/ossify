@@ -13,6 +13,23 @@ namespace Ossify.Variables
 
         public event Action<T> ValueChanged;
 
+        /// <inheritdoc />
+        Type IVariable.ValueType => typeof(T);
+
+        /// <inheritdoc />
+        object IVariable.Value
+        {
+            get => Value;
+            set => Value = (T)value;
+        }
+
+        /// <inheritdoc />
+        event Action<object> IVariable.ValueChanged
+        {
+            add => baseValueChanged += value;
+            remove => baseValueChanged -= value;
+        }
+
         public T Value
         {
             get => value;
@@ -21,15 +38,21 @@ namespace Ossify.Variables
                 this.value = value;
 
                 ValueChanged?.Invoke(value);
+                baseValueChanged?.Invoke(value);
             }
         }
 
+        private event Action<object> baseValueChanged;
+
         private void OnEditorValueChanged()
         {
-            if (Application.isPlaying)
+            if (Application.isPlaying == false)
             {
-                ValueChanged?.Invoke(value);
+                return;
             }
+
+            ValueChanged?.Invoke(value);
+            baseValueChanged?.Invoke(value);
         }
     }
 }

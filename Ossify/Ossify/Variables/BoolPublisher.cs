@@ -1,4 +1,6 @@
 ﻿namespace Ossify.Variables
 {
-    public sealed class BoolPublisher : Publisher<bool, BoolVariable, BoolReference> { }
+    public sealed class BoolPublisher : Publisher<bool, BoolVariable, BoolReference>
+    {
+    }
 }
