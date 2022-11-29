@@ -24,26 +24,36 @@ namespace Ossify
 
         public void Add(T item)
         {
-            if (items.Contains(item))
-            {
-                return;
-            }
-
-            items.Add(item);
-
-            Added?.Invoke(item);
+            if (TryAdd(item)) Added?.Invoke(item);
         }
 
         public void Remove(T item)
         {
+            if (TryRemove(item)) Removed?.Invoke(item);
+        }
+
+        protected virtual bool TryAdd(T item)
+        {
+            if (items.Contains(item))
+            {
+                return false;
+            }
+
+            items.Add(item);
+
+            return true;
+        }
+        
+        protected virtual bool TryRemove(T item)
+        {
             if (items.Contains(item) == false)
             {
-                return;
+                return false;
             }
 
             items.Remove(item);
 
-            Removed?.Invoke(item);
+            return true;
         }
     }
 }

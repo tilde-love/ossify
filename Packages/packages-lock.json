@@ -213,7 +213,9 @@
       "version": "file:../Ossify",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.cysharp.unitask": "2.3.3"
+      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
