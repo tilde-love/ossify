@@ -7,11 +7,11 @@ namespace Ossify.Variables
     {
         [SerializeField] private TVariable variable;
 
-        [SerializeField] private readonly Event onValueChanged = new();
+        [SerializeField] private UnityEvent<TValue> onValueChanged = new Event();
 
         public TValue Value { get; private set; }
 
-        public Event OnValueChanged => onValueChanged;
+        public UnityEvent<TValue> OnValueChanged => onValueChanged;
 
         private void OnEnable()
         {
@@ -34,7 +34,7 @@ namespace Ossify.Variables
             onValueChanged.Invoke(Value);
         }
 
-        public class Event : UnityEvent<TValue>
+        private class Event : UnityEvent<TValue>
         {
         }
     }
