@@ -1,6 +1,7 @@
-using Ossify.Activations;
+using Ossify.Ballots;
 using Ossify.Bindings.Specific.Unity;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ossify.Bindings.Specific.TMP
@@ -8,7 +9,7 @@ namespace Ossify.Bindings.Specific.TMP
     [RequireComponent(typeof(Button))]
     public sealed class ButtonToPulseBinder : MonoBehaviour
     {
-        [SerializeField] private Pulse pulse;
+        [FormerlySerializedAs("pulse"),SerializeField] private Impulse impulse;
         private ButtonBinding binding;
         private Button bound;
 
@@ -18,6 +19,6 @@ namespace Ossify.Bindings.Specific.TMP
 
         private void OnDisable() => binding.Dispose();
 
-        private void OnClicked() => pulse.Invoke();
+        private void OnClicked() => impulse.Invoke();
     }
 }
