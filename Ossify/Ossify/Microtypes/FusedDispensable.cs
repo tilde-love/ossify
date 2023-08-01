@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ossify.Ossify.Microtypes
 {
-    public class FusedDispensable : MonoBehaviour, IDispensable, IDispensedHandle
+    public class FusedDispensable : Dispensable
     {
         [SerializeField] private float duration = 4;
         private Action returnMeToDispenser;
@@ -17,30 +17,10 @@ namespace Ossify.Ossify.Microtypes
         }
 
         /// <inheritdoc />
-        public IDispensedHandle Initialize(Action returnMeToDispenser)
+        protected override void OnReset()
         {
-            this.returnMeToDispenser = returnMeToDispenser;
-
-            return this;
-        }
-
-        [Button]
-        public void ReturnToDispenser() => returnMeToDispenser?.Invoke();
-
-        void IDispensedHandle.Reset()
-        {
+            base.OnReset();
             time = 0;
-            gameObject.SetActive(true);
-        }
-
-        void IDispensedHandle.Suspend()
-        {
-            if (this != null && gameObject != null) gameObject.SetActive(false);
-        }
-
-        void IDispensedHandle.Destroy()
-        {
-            if (this != null && gameObject != null) Destroy(gameObject);
         }
     }
 }
