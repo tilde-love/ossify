@@ -1,17 +1,17 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Ossify
 {
     public class Heartbeat : AsyncMonoBehaviour
     {
-        [SerializeReference, InlineEditor, InlineProperty] private Backbone backbone;
-        
+        [SerializeReference, InlineEditor, InlineProperty]
+        private Backbone backbone;
+
         private CustodianBackbone.Artifact running;
 
-        async void OnEnable()
+        private async void OnEnable()
         {
             if (backbone == null) return;
 
@@ -21,8 +21,8 @@ namespace Ossify
 
                 return;
             }
-            
-            if (backbone is not AsyncBackbone asyncBackbone) 
+
+            if (backbone is not AsyncBackbone asyncBackbone)
             {
                 throw new Exception($"Backbone {backbone} is not a known type of Backbone.");
             }
@@ -31,10 +31,8 @@ namespace Ossify
             {
                 await asyncBackbone.PulseAsync(CancellationToken);
             }
-            catch (Exception ex) when (ex.IsCancellation())
-            {
-            }
-            catch (Exception ex) 
+            catch (Exception ex) when (ex.IsCancellation()) { }
+            catch (Exception ex)
             {
                 Debug.LogException(ex);
             }
@@ -46,6 +44,7 @@ namespace Ossify
             base.OnDisable();
 
             running?.Dispose();
+
             running = null;
         }
     }

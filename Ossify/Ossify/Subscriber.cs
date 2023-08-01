@@ -24,18 +24,13 @@ namespace Ossify.Variables
 
         protected virtual void Changed(TValue value)
         {
-            if (Value.Equals(variable.Value))
-            {
-                return;
-            }
+            if (Value.Equals(variable.Value)) return;
 
             Value = variable.Value;
 
             onValueChanged.Invoke(Value);
         }
 
-        private class Event : UnityEvent<TValue>
-        {
-        }
+        private class Event : UnityEvent<TValue> { }
     }
 }

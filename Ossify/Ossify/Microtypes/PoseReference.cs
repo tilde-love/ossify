@@ -4,7 +4,5 @@ using UnityEngine;
 namespace Ossify.Variables
 {
     [Serializable]
-    public sealed class PoseReference : Reference<Pose, PoseVariable>
-    {
-    }
+    public sealed class PoseReference : Reference<Pose, PoseVariable> { }
 }

@@ -100,9 +100,7 @@ namespace Ossify.Ballots
             cancelOnDisabled = null;
         }
 
-        private sealed class ImpulseUnityEvent : UnityEvent<T0>
-        {
-        }
+        private sealed class ImpulseUnityEvent : UnityEvent<T0> { }
     }
 
     public abstract class Impulse<T0, T1> : ScriptableObject
@@ -167,9 +165,7 @@ namespace Ossify.Ballots
             cancelOnDisabled = null;
         }
 
-        private sealed class ImpulseUnityEvent : UnityEvent<T0, T1>
-        {
-        }
+        private sealed class ImpulseUnityEvent : UnityEvent<T0, T1> { }
     }
 
     public abstract class Impulse<T0, T1, T2> : ScriptableObject
@@ -234,9 +230,7 @@ namespace Ossify.Ballots
             cancelOnDisabled = null;
         }
 
-        private sealed class ImpulseUnityEvent : UnityEvent<T0, T1, T2>
-        {
-        }
+        private sealed class ImpulseUnityEvent : UnityEvent<T0, T1, T2> { }
     }
 
     public abstract class Impulse<T0, T1, T2, T3> : ScriptableObject
@@ -248,7 +242,10 @@ namespace Ossify.Ballots
             T0 v0,
             T1 v1,
             T2 v2,
-            T3 v3) => Pulsed?.Invoke(v0, v1, v2, v3);
+            T3 v3)
+        {
+            Pulsed?.Invoke(v0, v1, v2, v3);
+        }
 
         public async UniTask<(T0 v0, T1 v1, T2 v2, T3 v3)> Wait(CancellationToken cancellationToken)
         {
@@ -309,8 +306,6 @@ namespace Ossify.Ballots
             cancelOnDisabled = null;
         }
 
-        private sealed class ImpulseUnityEvent : UnityEvent<T0, T1, T2, T3>
-        {
-        }
+        private sealed class ImpulseUnityEvent : UnityEvent<T0, T1, T2, T3> { }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Ossify
 {
@@ -13,23 +12,27 @@ namespace Ossify
     public class Custodian<TArtifact> : IDisposable, IEnumerable<TArtifact> where TArtifact : IArtifact
     {
         public delegate void Destructor(TArtifact artifact);
+
         public delegate TArtifact Factory(Destructor destructor);
 
         private readonly Factory artifactFactory;
-        private readonly List<TArtifact> artifacts = new ();
+
+        private readonly List<TArtifact> artifacts = new();
+
+        public TArtifact this[int i] => artifacts[i];
+
+        public int Count => artifacts.Count;
 
         public Custodian(Factory artifactFactory) => this.artifactFactory = artifactFactory;
 
-        public int Count => artifacts.Count; 
+        /// <inheritdoc />
+        public void Dispose() => Clear();
 
-        public TArtifact Get()
-        {
-            var result = artifactFactory(Remove);
+        /// <inheritdoc />
+        IEnumerator IEnumerable.GetEnumerator() => (artifacts as IEnumerable).GetEnumerator();
 
-            artifacts.Add(result); 
-
-            return result;
-        }
+        /// <inheritdoc />
+        public IEnumerator<TArtifact> GetEnumerator() => artifacts.GetEnumerator();
 
         public void Clear()
         {
@@ -43,40 +46,42 @@ namespace Ossify
             artifacts.Clear();
         }
 
+        public TArtifact Get()
+        {
+            TArtifact result = artifactFactory(Remove);
+
+            artifacts.Add(result);
+
+            return result;
+        }
+
         private void Remove(TArtifact artifact) => artifacts.Remove(artifact);
-
-        /// <inheritdoc />
-        public void Dispose() => Clear();
-
-        /// <inheritdoc />
-        public IEnumerator<TArtifact> GetEnumerator() => artifacts.GetEnumerator();
-
-        /// <inheritdoc />
-        IEnumerator IEnumerable.GetEnumerator() => (artifacts as IEnumerable).GetEnumerator();
-
-        public TArtifact this[int i] => artifacts[i];
-    }    
+    }
 
     public class Custodian<TArtifact, TData> : IDisposable, IEnumerable<TArtifact> where TArtifact : IArtifact
     {
         public delegate void Destructor(TArtifact artifact);
+
         public delegate TArtifact Factory(TData data, Destructor destructor);
 
         private readonly Factory artifactFactory;
-        private readonly List<TArtifact> artifacts = new ();
+
+        private readonly List<TArtifact> artifacts = new();
+
+        public TArtifact this[int i] => artifacts[i];
+
+        public int Count => artifacts.Count;
 
         public Custodian(Factory artifactFactory) => this.artifactFactory = artifactFactory;
 
-        public int Count => artifacts.Count; 
+        /// <inheritdoc />
+        public void Dispose() => Clear();
 
-        public TArtifact Get(TData data)
-        {
-            var result = artifactFactory(data, Remove);
+        /// <inheritdoc />
+        IEnumerator IEnumerable.GetEnumerator() => (artifacts as IEnumerable).GetEnumerator();
 
-            artifacts.Add(result); 
-
-            return result;
-        }
+        /// <inheritdoc />
+        public IEnumerator<TArtifact> GetEnumerator() => artifacts.GetEnumerator();
 
         public void Clear()
         {
@@ -90,17 +95,15 @@ namespace Ossify
             artifacts.Clear();
         }
 
+        public TArtifact Get(TData data)
+        {
+            TArtifact result = artifactFactory(data, Remove);
+
+            artifacts.Add(result);
+
+            return result;
+        }
+
         private void Remove(TArtifact artifact) => artifacts.Remove(artifact);
-
-        /// <inheritdoc />
-        public void Dispose() => Clear();
-
-        /// <inheritdoc />
-        public IEnumerator<TArtifact> GetEnumerator() => artifacts.GetEnumerator();
-
-        /// <inheritdoc />
-        IEnumerator IEnumerable.GetEnumerator() => (artifacts as IEnumerable).GetEnumerator();
-
-        public TArtifact this[int i] => artifacts[i];
-    }    
+    }
 }

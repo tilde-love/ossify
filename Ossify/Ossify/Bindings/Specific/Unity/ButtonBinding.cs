@@ -11,6 +11,9 @@ namespace Ossify.Bindings.Specific.Unity
         }
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.onClick.RemoveListener(Invoke);
+        public override void Dispose()
+        {
+            Bound.onClick.RemoveListener(Invoke);
+        }
     }
 }

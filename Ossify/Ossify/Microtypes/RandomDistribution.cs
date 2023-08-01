@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 namespace Ossify
-{    
+{
     [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Variables/Random Distribution")]
-    public sealed class RandomDistribution : Distribution 
+    public sealed class RandomDistribution : Distribution
     {
         /// <inheritdoc />
         public override int HistorySize => 0;

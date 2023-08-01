@@ -23,13 +23,17 @@ namespace Ossify.Bindings
         }
 
         /// <inheritdoc />
-        public virtual void Dispose()
+        public virtual void Dispose() { }
+
+        public void Cache()
         {
+            SetValue(Value);
         }
 
-        public void Cache() => SetValue(Value);
-
-        protected void InvokeValueChanged(TValue value) => Value = value;
+        protected void InvokeValueChanged(TValue value)
+        {
+            Value = value;
+        }
 
         protected abstract void SetValue(TValue value);
     }

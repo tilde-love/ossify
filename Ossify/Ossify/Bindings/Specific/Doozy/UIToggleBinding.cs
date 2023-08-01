@@ -13,7 +13,10 @@ namespace Ossify.Bindings.Specific.Doozy
         }
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.OnValueChangedCallback.RemoveListener(CheckAndInvokeValueChanged);
+        public override void Dispose()
+        {
+            Bound.OnValueChangedCallback.RemoveListener(CheckAndInvokeValueChanged);
+        }
 
         /// <inheritdoc />
         protected override void SetValue(bool value)

@@ -6,27 +6,28 @@ namespace Ossify.Variables
     {
         new T Value { get; set; }
 
-        new event Action<T> ValueChanged;
-
         void SetProtectedValue(T value);
+
+        new event Action<T> ValueChanged;
     }
 
     public interface IVariable
-    {        
+    {
+        VariableAccess Access { get; }
+
         object Value { get; set; }
 
         Type ValueType { get; }
 
-        event Action<object> ValueChanged;
-
-        VariableAccess Access { get; } 
-
         void SetProtectedValue(object value);
+
+        event Action<object> ValueChanged;
     }
 
-    public enum VariableAccess 
+    public enum VariableAccess
     {
         Protected,
+
         Volatile
     }
 }

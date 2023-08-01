@@ -24,10 +24,16 @@ namespace Ossify.Bindings.Specific.Unity
             OnValueChanged(variable.Value);
         }
 
-        private void OnDisable() => variable.ValueChanged -= OnValueChanged;
+        private void OnDisable()
+        {
+            variable.ValueChanged -= OnValueChanged;
+        }
 
         private Sprite Getter() => variable.Value;
 
-        private void OnValueChanged(Sprite value) => binding.Cache();
+        private void OnValueChanged(Sprite value)
+        {
+            binding.Cache();
+        }
     }
 }

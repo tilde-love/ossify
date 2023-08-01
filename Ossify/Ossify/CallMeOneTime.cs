@@ -8,18 +8,6 @@ namespace Ossify
 {
     public sealed class CallMeOneTime : AsyncMonoBehaviour
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void OnBeforeSceneLoadRuntimeMethod()
-        {
-            GameObject newObject = new GameObject("Caller");
-
-            var callMeOneTime = newObject.AddComponent<CallMeOneTime>();
-
-            newObject.hideFlags = HideFlags.DontSave;
-            
-            DontDestroyOnLoad(newObject);
-        }
-
         private static CallMeOneTime current;
 
         private readonly Queue<Action> actionQueue = new();
@@ -28,12 +16,9 @@ namespace Ossify
 
         private void Awake()
         {
-            if (current != null)
-            {
-                throw new InvalidOperationException("Only one CallMeOneTime can exist at a time.");
-            }
+            if (current != null) throw new InvalidOperationException("Only one CallMeOneTime can exist at a time.");
 
-            current = this;            
+            current = this;
         }
 
         private async void OnEnable()
@@ -60,9 +45,7 @@ namespace Ossify
                     await UniTask.NextFrame(PlayerLoopTiming.PreUpdate, cancel);
                 }
             }
-            catch (Exception e) when (e.IsCancellation())
-            {
-            }
+            catch (Exception e) when (e.IsCancellation()) { }
             catch (Exception ex)
             {
                 Debug.LogException(ex);
@@ -71,29 +54,33 @@ namespace Ossify
 
         private void OnDestroy()
         {
-            if (current == this)
-            {
-                current = null;
-            }
+            if (current == this) current = null;
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void OnBeforeSceneLoadRuntimeMethod()
+        {
+            GameObject newObject = new("Caller");
+
+            CallMeOneTime callMeOneTime = newObject.AddComponent<CallMeOneTime>();
+
+            newObject.hideFlags = HideFlags.DontSave;
+
+            DontDestroyOnLoad(newObject);
         }
 
         public static void Enqueue(Call call)
         {
-            if (call.queued)
-            {
-                return;
-            }
+            if (call.queued) return;
 
             current.callQueue.Enqueue(call);
+
             call.queued = true;
         }
 
         public static void Enqueue(Action action)
         {
-            if (current.actionQueue.Contains(action))
-            {
-                return;
-            }
+            if (current.actionQueue.Contains(action)) return;
 
             current.actionQueue.Enqueue(action);
         }

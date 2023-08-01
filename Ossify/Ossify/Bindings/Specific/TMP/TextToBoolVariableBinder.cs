@@ -20,7 +20,10 @@ namespace Ossify.Bindings.Specific.TMP
 
         private bool? value;
 
-        private void Awake() => bound = GetComponent<TMP_Text>();
+        private void Awake()
+        {
+            bound = GetComponent<TMP_Text>();
+        }
 
         private void OnEnable()
         {
@@ -31,7 +34,10 @@ namespace Ossify.Bindings.Specific.TMP
             OnValueChanged(variable.Value);
         }
 
-        private void OnDisable() => variable.ValueChanged -= OnValueChanged;
+        private void OnDisable()
+        {
+            variable.ValueChanged -= OnValueChanged;
+        }
 
         private void OnValueChanged(bool value)
         {
@@ -48,8 +54,6 @@ namespace Ossify.Bindings.Specific.TMP
         }
 
         [Serializable]
-        public sealed class BoolEvent : UnityEvent<bool>
-        {
-        }
+        public sealed class BoolEvent : UnityEvent<bool> { }
     }
 }

@@ -3,7 +3,5 @@
 namespace Ossify.Variables
 {
     [Serializable]
-    public sealed class ByteArrayReference : Reference<byte[], ByteArrayVariable>
-    {
-    }
+    public sealed class ByteArrayReference : Reference<byte[], ByteArrayVariable> { }
 }

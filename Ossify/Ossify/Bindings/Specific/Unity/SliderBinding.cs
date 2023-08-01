@@ -7,13 +7,21 @@ namespace Ossify.Bindings.Specific.Unity
     {
         /// <inheritdoc />
         public SliderBinding(Slider bound, Func<float> getter, Action<float> setter)
-            : base(bound, getter, setter) =>
+            : base(bound, getter, setter)
+        {
             Bound.onValueChanged.AddListener(InvokeValueChanged);
+        }
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        public override void Dispose()
+        {
+            Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        }
 
         /// <inheritdoc />
-        protected override void SetValue(float value) => Bound.SetValueWithoutNotify(value);
+        protected override void SetValue(float value)
+        {
+            Bound.SetValueWithoutNotify(value);
+        }
     }
 }

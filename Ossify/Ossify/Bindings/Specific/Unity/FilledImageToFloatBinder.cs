@@ -31,7 +31,10 @@ namespace Ossify.Bindings.Specific.Unity
             OnValueChanged(variable.Value);
         }
 
-        private void OnDisable() => variable.ValueChanged -= OnValueChanged;
+        private void OnDisable()
+        {
+            variable.ValueChanged -= OnValueChanged;
+        }
 
         private float Getter() =>
             Mathf.Clamp(
@@ -46,13 +49,17 @@ namespace Ossify.Bindings.Specific.Unity
                 maxFill.Value
             );
 
-        private void OnValueChanged(float value) => binding.Cache();
+        private void OnValueChanged(float value)
+        {
+            binding.Cache();
+        }
 
         private static float Remap(
             float value,
             float min,
             float newMin,
             float max,
-            float newMax) => newMin + (value - min) * (newMax - newMin) / (max - min);
+            float newMax) =>
+            newMin + (value - min) * (newMax - newMin) / (max - min);
     }
 }

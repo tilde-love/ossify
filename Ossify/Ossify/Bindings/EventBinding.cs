@@ -8,16 +8,12 @@ namespace Ossify.Bindings
 
         public EventBinding(TBound bound) => Bound = bound ?? throw new ArgumentNullException(nameof(bound));
 
-        public virtual void Dispose()
-        {
-        }
+        public virtual void Dispose() { }
 
         /// <summary>
         ///     Does nothing.
         /// </summary>
-        public void Cache()
-        {
-        }
+        public void Cache() { }
 
         public abstract void Raise(TValue value);
     }
@@ -28,16 +24,12 @@ namespace Ossify.Bindings
 
         public EventBinding(TBound bound) => Bound = bound ?? throw new ArgumentNullException(nameof(bound));
 
-        public virtual void Dispose()
-        {
-        }
+        public virtual void Dispose() { }
 
         /// <summary>
         ///     Does nothing.
         /// </summary>
-        public void Cache()
-        {
-        }
+        public void Cache() { }
 
         public abstract void Raise();
     }

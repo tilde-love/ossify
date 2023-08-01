@@ -18,7 +18,8 @@ namespace Ossify.Ballots
 
         [SerializeField, TextArea] private string comment;
 
-        [SerializeField, OnValueChanged(nameof(MaintainActiveState))] private BallotThresholdType thresholdType = BallotThresholdType.AboveNumber;
+        [SerializeField, OnValueChanged(nameof(MaintainActiveState))]
+        private BallotThresholdType thresholdType = BallotThresholdType.AboveNumber;
 
         [ShowIf(nameof(IsNumberThreshold)), SerializeField, LabelText("Threshold")]
         private int numberThreshold = 1;
@@ -50,17 +51,15 @@ namespace Ossify.Ballots
             listeners.Clear();
         }
 
-        private bool TestThreshold()
-        {
-            switch (thresholdType)
+        private bool TestThreshold() =>
+            thresholdType switch
             {
-                case BallotThresholdType.AboveNumber: return active > numberThreshold;
-                case BallotThresholdType.BelowNumber: return active < numberThreshold;
-                case BallotThresholdType.AboveProportion: return active > references.Count * proportionThreshold;
-                case BallotThresholdType.BelowProportion: return active < references.Count * proportionThreshold;
-                default: throw new ArgumentOutOfRangeException();
-            }
-        }
+                BallotThresholdType.AboveNumber => active > numberThreshold,
+                BallotThresholdType.BelowNumber => active < numberThreshold,
+                BallotThresholdType.AboveProportion => active > references.Count * proportionThreshold,
+                BallotThresholdType.BelowProportion => active < references.Count * proportionThreshold,
+                _ => throw new ArgumentOutOfRangeException()
+            };
 
         public event Action<bool> ActiveChanged;
 
@@ -68,20 +67,20 @@ namespace Ossify.Ballots
 
         public Reference GetReference(bool active) => references.Get(active);
 
-        private bool IsNumberThreshold()
-            => thresholdType == BallotThresholdType.AboveNumber || thresholdType == BallotThresholdType.BelowNumber;
+        private bool IsNumberThreshold() => thresholdType == BallotThresholdType.AboveNumber || thresholdType == BallotThresholdType.BelowNumber;
 
-        private Reference IssueReference(bool active, Custodian<Reference, bool>.Destructor destructor)
-            => new(this, active, destructor);
+        private Reference IssueReference(bool active, Custodian<Reference, bool>.Destructor destructor) => new(this, active, destructor);
 
-        private Listener IssueListener(Custodian<Listener>.Destructor destructor)
-            => new(this, destructor);
+        private Listener IssueListener(Custodian<Listener>.Destructor destructor) => new(this, destructor);
 
         private void Invoke(bool value)
         {
             ActiveChanged?.Invoke(value);
 
-            for (int i = listeners.Count - 1; i >= 0; i--) listeners[i].ValueChanged(value);
+            for (int i = listeners.Count - 1; i >= 0; i--)
+            {
+                listeners[i].ValueChanged(value);
+            }
         }
 
         private void Decrement()
@@ -98,12 +97,12 @@ namespace Ossify.Ballots
             MaintainActiveState();
         }
 
-        private void MaintainActiveState() 
+        private void MaintainActiveState()
         {
             if (currentActive == Active) return;
 
             currentActive = Active;
-            
+
             Invoke(currentActive);
         }
 
@@ -156,10 +155,7 @@ namespace Ossify.Ballots
 
             public void Dispose()
             {
-                if (Disposed)
-                {
-                    return;
-                }
+                if (Disposed) return;
 
                 Disposed = true;
 
@@ -176,10 +172,7 @@ namespace Ossify.Ballots
 
             internal void ValueChanged(bool value)
             {
-                if (Disposed)
-                {
-                    return;
-                }
+                if (Disposed) return;
 
                 Changed?.Invoke(value);
             }
@@ -196,21 +189,12 @@ namespace Ossify.Ballots
                 get => active;
                 set
                 {
-                    if (active == value)
-                    {
-                        return;
-                    }
+                    if (active == value) return;
 
                     active = value;
 
-                    if (active)
-                    {
-                        ballot.Increment();
-                    }
-                    else
-                    {
-                        ballot.Decrement();
-                    }
+                    if (active) ballot.Increment();
+                    else ballot.Decrement();
                 }
             }
 
@@ -220,27 +204,18 @@ namespace Ossify.Ballots
                 this.ballot = ballot;
                 this.active = active;
 
-                if (active)
-                {
-                    ballot.Increment();
-                }
+                if (active) ballot.Increment();
             }
 
             public bool Disposed { get; private set; }
 
             public void Dispose()
             {
-                if (Disposed)
-                {
-                    return;
-                }
+                if (Disposed) return;
 
                 Disposed = true;
 
-                if (active)
-                {
-                    ballot.Decrement();
-                }
+                if (active) ballot.Decrement();
 
                 destructor(this);
             }

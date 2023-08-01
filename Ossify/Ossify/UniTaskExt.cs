@@ -12,7 +12,7 @@ namespace Ossify
             CancellationToken cancellationToken,
             out CancellationToken linked)
         {
-            CancellationTokenSource result = CancellationTokenSource.CreateLinkedTokenSource(
+            var result = CancellationTokenSource.CreateLinkedTokenSource(
                 gameObject.GetCancellationTokenOnDestroy(),
                 cancellationToken
             );
@@ -27,7 +27,7 @@ namespace Ossify
             CancellationToken cancellationToken,
             out CancellationToken linked)
         {
-            CancellationTokenSource result = CancellationTokenSource.CreateLinkedTokenSource(
+            var result = CancellationTokenSource.CreateLinkedTokenSource(
                 component.GetCancellationTokenOnDestroy(),
                 cancellationToken
             );

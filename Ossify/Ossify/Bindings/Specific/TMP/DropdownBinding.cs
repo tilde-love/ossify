@@ -24,11 +24,20 @@ namespace Ossify.Bindings.Specific.TMP
         }
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        public override void Dispose()
+        {
+            Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        }
 
         /// <inheritdoc />
-        protected override void SetValue(TEnum value) => Bound.SetValueWithoutNotify(values.IndexOf(value));
+        protected override void SetValue(TEnum value)
+        {
+            Bound.SetValueWithoutNotify(values.IndexOf(value));
+        }
 
-        private void InvokeValueChanged(int value) => InvokeValueChanged(values[value]);
+        private void InvokeValueChanged(int value)
+        {
+            InvokeValueChanged(values[value]);
+        }
     }
 }

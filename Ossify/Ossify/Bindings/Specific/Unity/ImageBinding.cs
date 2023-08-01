@@ -8,16 +8,15 @@ namespace Ossify.Bindings.Specific.Unity
     {
         /// <inheritdoc />
         public ImageBinding(Image bound, Func<Sprite> getter)
-            : base(bound, getter)
-        {
-        }
+            : base(bound, getter) { }
 
         /// <inheritdoc />
-        public override void Dispose()
-        {
-        }
+        public override void Dispose() { }
 
         /// <inheritdoc />
-        protected override void SetValue(Sprite value) => Bound.sprite = value;
+        protected override void SetValue(Sprite value)
+        {
+            Bound.sprite = value;
+        }
     }
 }

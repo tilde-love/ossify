@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace Ossify
 {
-    public abstract class Backbone : ScriptableObject 
-    {
-    }
+    public abstract class Backbone : ScriptableObject { }
 
     public abstract class AsyncBackbone : Backbone
     {
@@ -15,10 +13,21 @@ namespace Ossify
 
     public abstract class CustodianBackbone : Backbone
     {
-        public sealed class Artifact : IArtifact  
+        private readonly Custodian<Artifact> custodian;
+
+        protected CustodianBackbone() => custodian = new Custodian<Artifact>(CreateArtifact);
+
+        private Artifact CreateArtifact(Custodian<Artifact>.Destructor destructor) => new(custodian.Count == 0 ? this : null, destructor);
+
+        public Artifact Get() => custodian.Get();
+
+        protected abstract void Begin();
+
+        protected abstract void End();
+
+        public sealed class Artifact : IArtifact
         {
             private readonly CustodianBackbone backbone;
-            private bool disposed;
             private readonly Custodian<Artifact>.Destructor destructor;
 
             internal Artifact(CustodianBackbone backbone, Custodian<Artifact>.Destructor destructor)
@@ -30,31 +39,19 @@ namespace Ossify
             }
 
             /// <inheritdoc />
-            public void Dispose()
-            {
-                if (disposed) return;
-
-                disposed = true;
-
-                if (backbone != null) backbone.End();
-   
-                destructor(this);
-            }
+            public bool Disposed { get; private set; }
 
             /// <inheritdoc />
-            public bool Disposed => disposed; 
+            public void Dispose()
+            {
+                if (Disposed) return;
+
+                Disposed = true;
+
+                if (backbone != null) backbone.End();
+
+                destructor(this);
+            }
         }
-
-        readonly Custodian<Artifact> custodian;
-
-        public CustodianBackbone() => custodian = new Custodian<Artifact>(CreateArtifact);
-
-        private Artifact CreateArtifact(Custodian<Artifact>.Destructor destructor) => new(custodian.Count == 0 ? this : null, destructor);
-
-        public Artifact Get() => custodian.Get();
-
-        protected abstract void Begin();
-
-        protected abstract void End();
     }
 }

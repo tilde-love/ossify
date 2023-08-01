@@ -20,27 +20,26 @@ namespace Ossify.Ballots
 
         private void OnEnable()
         {
-            GetListener();                       
+            GetListener();
 
             OnChanged(ballot.Active);
         }
 
-        private void OnDisable() => DisposeListener();
+        private void OnDisable()
+        {
+            DisposeListener();
+        }
 
         private void GetListener()
         {
-            if (listener is { Disposed: true })
-            {
-                DisposeListener();
-            }
+            if (listener is { Disposed: true }) DisposeListener();
 
-            if (listener == null)
-            {
-                listener = ballot.GetListener();
+            if (listener != null) return;
 
-                listener.Changed += OnChanged;
-                listener.Expired += OnExpired;
-            }
+            listener = ballot.GetListener();
+
+            listener.Changed += OnChanged;
+            listener.Expired += OnExpired;
         }
 
         private void DisposeListener()
@@ -59,14 +58,8 @@ namespace Ossify.Ballots
         {
             onBallotChanged.Invoke(active);
 
-            if (active)
-            {
-                onActivated.Invoke();
-            }
-            else
-            {
-                onDeactivated.Invoke();
-            }
+            if (active) onActivated.Invoke();
+            else onDeactivated.Invoke();
         }
     }
 }

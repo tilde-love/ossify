@@ -14,9 +14,7 @@ namespace Ossify.Bindings
             this.getter = getter ?? throw new ArgumentNullException(nameof(getter));
         }
 
-        public virtual void Dispose()
-        {
-        }
+        public virtual void Dispose() { }
 
         public void Cache()
         {

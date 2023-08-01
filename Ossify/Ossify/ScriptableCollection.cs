@@ -15,10 +15,8 @@ namespace Ossify
 
         public IReadOnlyList<T> Items => cached ??= items.AsReadOnly();
 
-        /// <inheritdoc />
         public IEnumerator<T> GetEnumerator() => ((IEnumerable<T>)items).GetEnumerator();
 
-        /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public event Action<T> Added;
@@ -37,22 +35,16 @@ namespace Ossify
 
         protected virtual bool TryAdd(T item)
         {
-            if (items.Contains(item))
-            {
-                return false;
-            }
+            if (items.Contains(item)) return false;
 
             items.Add(item);
 
             return true;
         }
-        
+
         protected virtual bool TryRemove(T item)
         {
-            if (items.Contains(item) == false)
-            {
-                return false;
-            }
+            if (items.Contains(item) == false) return false;
 
             items.Remove(item);
 

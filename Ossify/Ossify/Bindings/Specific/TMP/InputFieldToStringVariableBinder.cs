@@ -18,16 +18,31 @@ namespace Ossify.Bindings.Specific.TMP
             binding = new InputFieldBinding(bound, Getter, Setter);
         }
 
-        private void Start() => OnValueChanged(variable.Value);
+        private void Start()
+        {
+            OnValueChanged(variable.Value);
+        }
 
-        private void OnEnable() => variable.ValueChanged += OnValueChanged;
+        private void OnEnable()
+        {
+            variable.ValueChanged += OnValueChanged;
+        }
 
-        private void OnDisable() => variable.ValueChanged -= OnValueChanged;
+        private void OnDisable()
+        {
+            variable.ValueChanged -= OnValueChanged;
+        }
 
-        private void Setter(string value) => variable.Value = value;
+        private void Setter(string value)
+        {
+            variable.Value = value;
+        }
 
         private string Getter() => variable.Value;
 
-        private void OnValueChanged(string value) => binding.Cache();
+        private void OnValueChanged(string value)
+        {
+            binding.Cache();
+        }
     }
 }

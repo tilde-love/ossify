@@ -18,17 +18,16 @@ namespace Ossify.Bindings
         }
 
         /// <inheritdoc />
-        public virtual void Dispose()
-        {
-        }
+        public virtual void Dispose() { }
 
         /// <summary>
         ///     Does nothing.
         /// </summary>
-        public void Cache()
-        {
-        }
+        public void Cache() { }
 
-        protected void Invoke() => action?.Invoke();
+        protected void Invoke()
+        {
+            action?.Invoke();
+        }
     }
 }

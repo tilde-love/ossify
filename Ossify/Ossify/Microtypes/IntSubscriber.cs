@@ -1,6 +1,4 @@
 ﻿namespace Ossify.Variables
 {
-    public sealed class IntSubscriber : Subscriber<int, IntVariable>
-    {
-    }
+    public sealed class IntSubscriber : Subscriber<int, IntVariable> { }
 }

@@ -1,5 +1,6 @@
 using System;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,7 +18,7 @@ namespace Ossify.Variables
          FormerlySerializedAs("value")]
         private TValue protectedValue;
 
-        [SerializeField] VariableAccess access = VariableAccess.Volatile;
+        [SerializeField] private VariableAccess access = VariableAccess.Volatile;
 
         private bool hasVolatileValueBeenSet;
 
@@ -33,7 +34,7 @@ namespace Ossify.Variables
 
         public void SetProtectedValue(TValue value) => SetInnerProtectedValue(value);
 
-        void IVariable.SetProtectedValue(object value) => SetInnerProtectedValue((TValue) value);
+        void IVariable.SetProtectedValue(object value) => SetInnerProtectedValue((TValue)value);
 
         public event Action<TValue> ValueChanged;
 
@@ -76,10 +77,11 @@ namespace Ossify.Variables
             if (Application.isPlaying == false) return;
 
             ValueChanged?.Invoke(value);
+
             objectValueChanged?.Invoke(value);
 
 #if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(this);
 #endif
         }
 
@@ -96,9 +98,9 @@ namespace Ossify.Variables
 
         private void SetInnerProtectedValue(TValue value)
         {
-            volatileValue = protectedValue = value;            
+            volatileValue = protectedValue = value;
 
-            TriggerValueChange(value); 
+            TriggerValueChange(value);
         }
 
         private event Action<object> objectValueChanged;
@@ -109,7 +111,7 @@ namespace Ossify.Variables
 
             volatileValue = protectedValue;
 
-            TriggerValueChange(volatileValue); 
+            TriggerValueChange(volatileValue);
         }
 
         private void OnEditorChangedVolatileValue() => TriggerValueChange(volatileValue);

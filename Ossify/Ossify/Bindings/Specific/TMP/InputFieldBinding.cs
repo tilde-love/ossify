@@ -12,9 +12,15 @@ namespace Ossify.Bindings.Specific.TMP
         }
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        public override void Dispose()
+        {
+            Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        }
 
         /// <inheritdoc />
-        protected override void SetValue(string value) => Bound.SetTextWithoutNotify(value);
+        protected override void SetValue(string value)
+        {
+            Bound.SetTextWithoutNotify(value);
+        }
     }
 }

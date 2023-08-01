@@ -22,10 +22,7 @@ namespace Ossify.Ballots
         {
             GetListener();
 
-            if (ballot != null)
-            {
-                OnActivationChanged(ballot.Active);
-            }
+            if (ballot != null) OnActivationChanged(ballot.Active);
         }
 
         private void OnDestroy()
@@ -39,22 +36,13 @@ namespace Ossify.Ballots
 
         private void GetListener()
         {
-            if (listener is { Disposed: true })
-            {
-                DisposeListener();
-            }
+            if (listener is { Disposed: true }) DisposeListener();
 
-            if (listener != null)
-            {
-                return;
-            }
+            if (listener != null) return;
 
             listener = ballot != null ? ballot.GetListener() : null;
 
-            if (listener == null)
-            {
-                return;
-            }
+            if (listener == null) return;
 
             listener.Changed += OnActivationChanged;
             listener.Expired += OnExpired;
@@ -71,17 +59,12 @@ namespace Ossify.Ballots
             listener.Changed -= OnActivationChanged;
             listener.Expired -= OnExpired;
 
-            if (this != null && isBeingDestroyed == false)
-            {
-                gameObject.SetActive(true);
-            }
+            if (this != null && isBeingDestroyed == false) gameObject.SetActive(true);
         }
 
         private void OnActivationChanged(bool active) => gameObject.SetActive(active ^ invert);
     }
 
     [Serializable]
-    public class BoolEvent : UnityEvent<bool>
-    {
-    }
+    public class BoolEvent : UnityEvent<bool> { }
 }

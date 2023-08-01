@@ -19,17 +19,32 @@ namespace Ossify.Bindings.Specific.Doozy
             binding = new UISliderBinding(bound, Getter, Setter);
         }
 
-        private void Start() => OnValueChanged(variable.Value);
+        private void Start()
+        {
+            OnValueChanged(variable.Value);
+        }
 
-        private void OnEnable() => variable.ValueChanged += OnValueChanged;
+        private void OnEnable()
+        {
+            variable.ValueChanged += OnValueChanged;
+        }
 
-        private void OnDisable() => variable.ValueChanged -= OnValueChanged;
+        private void OnDisable()
+        {
+            variable.ValueChanged -= OnValueChanged;
+        }
 
-        private void Setter(float value) => variable.Value = (int)value;
+        private void Setter(float value)
+        {
+            variable.Value = (int)value;
+        }
 
         private float Getter() => variable.Value;
 
-        private void OnValueChanged(int value) => binding.Cache();
+        private void OnValueChanged(int value)
+        {
+            binding.Cache();
+        }
     }
 }
 #endif

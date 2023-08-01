@@ -13,10 +13,16 @@ namespace Ossify.Bindings.Specific.Doozy
         }
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.OnValueChangedCallback.RemoveListener(InvokeValueChanged);
+        public override void Dispose()
+        {
+            Bound.OnValueChangedCallback.RemoveListener(InvokeValueChanged);
+        }
 
         /// <inheritdoc />
-        protected override void SetValue(float value) => Bound.SetValueWithoutNotify(value);
+        protected override void SetValue(float value)
+        {
+            Bound.SetValueWithoutNotify(value);
+        }
     }
 }
 #endif

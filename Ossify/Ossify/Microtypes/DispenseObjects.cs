@@ -1,41 +1,46 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Ossify.Ossify.Microtypes
 {
-    public class DispenseObjects: AsyncMonoBehaviour
+    public class DispenseObjects : AsyncMonoBehaviour
     {
         public ObjectDispenser dispenser;
 
-        [SerializeField] float intervalSeconds = 0.1f;
+        [SerializeField] private float intervalSeconds = 0.1f;
 
-        async void OnEnable()
+        private async void OnEnable()
         {
-            var cancel = CancellationToken; 
+            CancellationToken cancel = CancellationToken;
 
-            try 
+            try
             {
-                while (cancel.IsCancellationRequested == false) 
+                while (cancel.IsCancellationRequested == false)
                 {
                     await UniTask.Delay(TimeSpan.FromSeconds(intervalSeconds), cancellationToken: cancel);
 
-                    var dispensed = dispenser.Dispense();
+                    GameObject dispensed = dispenser.Dispense();
 
-                    if (dispensed == null) continue;
+                    if (dispensed == null)
+                    {
+                        continue;
+                    }
 
-                    dispensed.gameObject.transform.position = transform.position;    
+                    dispensed.gameObject.transform.position = transform.position;
 
-                    if (dispensed.GetComponent<Rigidbody>() is { } rigidbody) rigidbody.velocity = Vector3.zero;            
+                    if (dispensed.GetComponent<Rigidbody>() is { } rigidbody)
+                    {
+                        rigidbody.velocity = Vector3.zero;
+                    }
                 }
             }
-            catch (Exception ex) when (ex.IsCancellation())
-            {
-            }
-            catch (Exception ex) 
+            catch (Exception ex) when (ex.IsCancellation()) { }
+            catch (Exception ex)
             {
                 Debug.LogException(ex);
             }
-        }            
+        }
     }
 }

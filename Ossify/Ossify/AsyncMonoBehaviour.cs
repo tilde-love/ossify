@@ -6,9 +6,9 @@ namespace Ossify
     public abstract class AsyncMonoBehaviour : MonoBehaviour
     {
         private CancellationTokenSource disabledTokenSource;
-        
+
         protected CancellationToken CancellationToken => (disabledTokenSource ??= new CancellationTokenSource()).Token;
-                
+
         protected virtual void OnDisable()
         {
             disabledTokenSource?.Cancel();

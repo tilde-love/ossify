@@ -7,16 +7,15 @@ namespace Ossify.Bindings.Specific.Unity
     {
         /// <inheritdoc />
         public FilledImageBinding(Image bound, Func<float> getter)
-            : base(bound, getter)
-        {
-        }
+            : base(bound, getter) { }
 
         /// <inheritdoc />
-        public override void Dispose()
-        {
-        }
+        public override void Dispose() { }
 
         /// <inheritdoc />
-        protected override void SetValue(float value) => Bound.fillAmount = value;
+        protected override void SetValue(float value)
+        {
+            Bound.fillAmount = value;
+        }
     }
 }

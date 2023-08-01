@@ -9,16 +9,30 @@ namespace Ossify.Bindings.Specific.TMP
     [RequireComponent(typeof(Button))]
     public sealed class ButtonToPulseBinder : MonoBehaviour
     {
-        [FormerlySerializedAs("pulse"),SerializeField] private Impulse impulse;
+        [FormerlySerializedAs("pulse"), SerializeField]
+        private Impulse impulse;
+
         private ButtonBinding binding;
         private Button bound;
 
-        private void Awake() => bound = GetComponent<Button>();
+        private void Awake()
+        {
+            bound = GetComponent<Button>();
+        }
 
-        private void OnEnable() => binding = new ButtonBinding(bound, OnClicked);
+        private void OnEnable()
+        {
+            binding = new ButtonBinding(bound, OnClicked);
+        }
 
-        private void OnDisable() => binding.Dispose();
+        private void OnDisable()
+        {
+            binding.Dispose();
+        }
 
-        private void OnClicked() => impulse.Invoke();
+        private void OnClicked()
+        {
+            impulse.Invoke();
+        }
     }
 }

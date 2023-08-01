@@ -6,27 +6,27 @@ namespace Ossify.Bindings.Specific.Unity
     public class UnityEventBinding<TArg> : EventBinding<UnityEvent<TArg>, TArg>
     {
         /// <inheritdoc />
-        public UnityEventBinding(UnityEvent<TArg> bound) : base(bound)
-        {
-        }
+        public UnityEventBinding(UnityEvent<TArg> bound) : base(bound) { }
 
         /// <inheritdoc />
-        public override void Raise(TArg value) => Bound.Invoke(value);
+        public override void Raise(TArg value)
+        {
+            Bound.Invoke(value);
+        }
 
         [Serializable]
-        public class UnityEvent : UnityEvent<TArg>
-        {
-        }
+        public class UnityEvent : UnityEvent<TArg> { }
     }
 
     public class UnityEventBinding : EventBinding<UnityEvent>
     {
         /// <inheritdoc />
-        public UnityEventBinding(UnityEvent bound) : base(bound)
-        {
-        }
+        public UnityEventBinding(UnityEvent bound) : base(bound) { }
 
         /// <inheritdoc />
-        public override void Raise() => Bound.Invoke();
+        public override void Raise()
+        {
+            Bound.Invoke();
+        }
     }
 }

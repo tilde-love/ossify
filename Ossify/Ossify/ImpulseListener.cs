@@ -10,6 +10,7 @@ namespace Ossify.Ballots
         [FormerlySerializedAs("Pulse")] public Impulse impulse;
 
         public UnityEvent OnPulsed = new();
+
         private CancellationTokenSource cancelOnDisabled;
 
         private CancellationToken CancelOnDisabledToken => (cancelOnDisabled ??= new CancellationTokenSource()).Token;

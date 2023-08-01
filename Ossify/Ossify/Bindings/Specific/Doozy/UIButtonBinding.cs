@@ -19,7 +19,10 @@ namespace Ossify.Bindings.Specific.Doozy
         }
 
         /// <inheritdoc />
-        public override void Dispose() => UIButton.stream.DisconnectReceiver(signalReceiver);
+        public override void Dispose()
+        {
+            UIButton.stream.DisconnectReceiver(signalReceiver);
+        }
 
         private void OnSignal(Signal arg0)
         {

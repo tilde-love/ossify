@@ -7,16 +7,15 @@ namespace Ossify.Bindings.Specific.Unity
     {
         /// <inheritdoc />
         public LocalScaleBinding(Transform bound, Func<float> getter)
-            : base(bound, getter)
-        {
-        }
+            : base(bound, getter) { }
 
         /// <inheritdoc />
-        public override void Dispose()
-        {
-        }
+        public override void Dispose() { }
 
         /// <inheritdoc />
-        protected override void SetValue(float value) => Bound.localScale = new Vector3(value, value, value);
+        protected override void SetValue(float value)
+        {
+            Bound.localScale = new Vector3(value, value, value);
+        }
     }
 }

@@ -7,13 +7,21 @@ namespace Ossify.Bindings.Specific.Unity
     {
         /// <inheritdoc />
         public ToggleBinding(Toggle bound, Func<bool> getter, Action<bool> setter)
-            : base(bound, getter, setter) =>
+            : base(bound, getter, setter)
+        {
             Bound.onValueChanged.AddListener(InvokeValueChanged);
+        }
 
         /// <inheritdoc />
-        public override void Dispose() => Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        public override void Dispose()
+        {
+            Bound.onValueChanged.RemoveListener(InvokeValueChanged);
+        }
 
         /// <inheritdoc />
-        protected override void SetValue(bool value) => Bound.SetIsOnWithoutNotify(value);
+        protected override void SetValue(bool value)
+        {
+            Bound.SetIsOnWithoutNotify(value);
+        }
     }
 }
