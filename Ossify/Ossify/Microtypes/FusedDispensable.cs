@@ -12,14 +12,8 @@ namespace Ossify.Ossify.Microtypes
 
         private void Update()
         {
-            if (time >= duration)
-            {
-                ReturnToDispenser();
-            }
-            else
-            {
-                time += Time.deltaTime;
-            }
+            if (time >= duration) ReturnToDispenser();
+            else time += Time.deltaTime;
         }
 
         /// <inheritdoc />
@@ -31,10 +25,7 @@ namespace Ossify.Ossify.Microtypes
         }
 
         [Button]
-        public void ReturnToDispenser()
-        {
-            returnMeToDispenser?.Invoke();
-        }
+        public void ReturnToDispenser() => returnMeToDispenser?.Invoke();
 
         void IDispensedHandle.Reset()
         {
@@ -44,15 +35,12 @@ namespace Ossify.Ossify.Microtypes
 
         void IDispensedHandle.Suspend()
         {
-            gameObject.SetActive(false);
+            if (this != null && gameObject != null) gameObject.SetActive(false);
         }
 
         void IDispensedHandle.Destroy()
         {
-            if (this != null && gameObject != null)
-            {
-                Destroy(gameObject);
-            }
+            if (this != null && gameObject != null) Destroy(gameObject);
         }
     }
 }

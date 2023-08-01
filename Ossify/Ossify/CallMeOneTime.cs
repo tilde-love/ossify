@@ -95,7 +95,7 @@ namespace Ossify
 
             public Call(Action action) => this.action = action;
 
-            internal void Invoke() => action?.Invoke();
+            internal void Invoke() =>  action?.Invoke();
         }
     }
 }

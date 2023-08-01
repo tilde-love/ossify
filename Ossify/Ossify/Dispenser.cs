@@ -71,6 +71,7 @@ namespace Ossify
 
         private sealed class SingleItemDispenser : IDisposable
         {
+            private readonly List<Instance> instances;
             private readonly ObjectPool<Instance> pool;
 
             private readonly TValue prefab;
@@ -78,6 +79,8 @@ namespace Ossify
             public SingleItemDispenser(TValue prefab, int defaultCapacity = 100, bool preAllocate = true)
             {
                 this.prefab = prefab;
+                
+                ListPool<Instance>.Get(out instances);
 
                 pool = new ObjectPool<Instance>(
                     Create,
@@ -98,16 +101,30 @@ namespace Ossify
                 list.ForEach(pool.Release);
 
                 ListPool<Instance>.Release(list);
+
+                instances.Clear();
             }
 
             /// <inheritdoc />
-            public void Dispose() => pool.Dispose();
+            public void Dispose()
+            {
+                for (int index = instances.Count - 1; index >= 0; index--) 
+                {
+                    instances[index].ReturnMeToDispenser();
+                }
+
+                ListPool<Instance>.Release(instances);
+
+                pool.Dispose();
+            }
 
             public TValue Dispense()
             {
-                Instance item = pool.Get();
+                var instance = pool.Get();
+                
+                instances.Add(instance);
 
-                return item.Value;
+                return instance.Value;
             }
 
             private void ActionOnDestroy(Instance instance) => instance.Destroy();
@@ -118,7 +135,11 @@ namespace Ossify
 
             private Instance Create() => new(Instantiate(prefab), ReturnToDispenser);
 
-            private void ReturnToDispenser(Instance instance) => pool.Release(instance);
+            private void ReturnToDispenser(Instance instance)
+            {
+                instances.Remove(instance);
+                pool.Release(instance);
+            }
 
             private class Instance
             {
@@ -154,7 +175,7 @@ namespace Ossify
 
                 public void Suspend() => dispensedHandle.Suspend();
 
-                private void ReturnMeToDispenser() => returnToDispenser(this);
+                public void ReturnMeToDispenser() => returnToDispenser(this);
             }
         }
     }
