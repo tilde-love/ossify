@@ -57,9 +57,11 @@ namespace Ossify
             if (current == this) current = null;
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void OnBeforeSceneLoadRuntimeMethod()
         {
+            if (current != null) return;
+
             GameObject newObject = new("Caller");
 
             CallMeOneTime callMeOneTime = newObject.AddComponent<CallMeOneTime>();
