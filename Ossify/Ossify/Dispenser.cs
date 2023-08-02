@@ -19,6 +19,9 @@ namespace Ossify
 
         private readonly List<SingleItemDispenser> singleItemDispensers = new();
 
+        private GameObject containerObject;
+        private Transform container;
+
         private int[] history;
         private int historyIndex;
 
@@ -40,11 +43,18 @@ namespace Ossify
 
             if (distribution == null) distribution = CreateInstance<RandomDistribution>();
 
+            if (containerObject == null)
+            {
+                containerObject = new GameObject($"{name} (Pooled objects)");
+
+                container = containerObject.transform;
+            }
+
             history = ArrayPool<int>.Shared.Rent(distribution.HistorySize);
 
             foreach (TValue item in items)
             {
-                singleItemDispensers.Add(new SingleItemDispenser(item, defaultCapacity, preAllocate));
+                singleItemDispensers.Add(new SingleItemDispenser(container, item, defaultCapacity, preAllocate));
             }
 
             CanDispense = true;
@@ -62,6 +72,8 @@ namespace Ossify
 
             singleItemDispensers.Clear();
 
+            if (containerObject != null) Destroy(containerObject);
+
             if (history == null) return;
 
             ArrayPool<int>.Shared.Return(history);
@@ -75,9 +87,11 @@ namespace Ossify
             private readonly ObjectPool<Instance> pool;
 
             private readonly TValue prefab;
+            private readonly Transform container;
 
-            public SingleItemDispenser(TValue prefab, int defaultCapacity = 100, bool preAllocate = true)
+            public SingleItemDispenser(Transform container, TValue prefab, int defaultCapacity = 100, bool preAllocate = true)
             {
+                this.container = container; 
                 this.prefab = prefab;
                 
                 ListPool<Instance>.Get(out instances);
@@ -133,7 +147,7 @@ namespace Ossify
 
             private void ActionOnRelease(Instance instance) => instance.Suspend();
 
-            private Instance Create() => new(Instantiate(prefab), ReturnToDispenser);
+            private Instance Create() => new(Instantiate(prefab, container), ReturnToDispenser);
 
             private void ReturnToDispenser(Instance instance)
             {
