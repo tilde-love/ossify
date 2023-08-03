@@ -13,7 +13,7 @@ namespace Ossify
         [SerializeField] private int defaultCapacity = 100;
         [SerializeField] private bool preAllocate = true;
 
-        [SerializeReference, InlineEditor] private Distribution distribution;
+        [SerializeReference, InlineEditor] private SampleDistribution distribution;
 
         [SerializeReference, InlineEditor] private ScriptableCollection<TValue> items;
 
@@ -22,8 +22,7 @@ namespace Ossify
         private GameObject containerObject;
         private Transform container;
 
-        private int[] history;
-        private int historyIndex;
+        private SampleHistory history;        
 
         [ShowInInspector, ReadOnly]
         public bool CanDispense { get; private set; }
@@ -31,7 +30,7 @@ namespace Ossify
         public TValue Dispense() =>
             CanDispense == false
                 ? null
-                : singleItemDispensers[distribution.Pick(singleItemDispensers.Count, history, ref historyIndex)]
+                : singleItemDispensers[distribution.Distribute(singleItemDispensers.Count, history)]
                     .Dispense();
 
         /// <inheritdoc />
@@ -41,7 +40,7 @@ namespace Ossify
 
             if (items.Count == 0) return;
 
-            if (distribution == null) distribution = CreateInstance<RandomDistribution>();
+            if (distribution == null) distribution = CreateInstance<UniformDistribution>();
 
             if (containerObject == null)
             {
@@ -50,7 +49,7 @@ namespace Ossify
                 container = containerObject.transform;
             }
 
-            history = ArrayPool<int>.Shared.Rent(distribution.HistorySize);
+            history = distribution.CreateHistory();
 
             foreach (TValue item in items)
             {
@@ -73,10 +72,6 @@ namespace Ossify
             singleItemDispensers.Clear();
 
             if (containerObject != null) Destroy(containerObject);
-
-            if (history == null) return;
-
-            ArrayPool<int>.Shared.Return(history);
 
             history = null;
         }
