@@ -5,31 +5,31 @@ using Sirenix.OdinInspector;
 namespace Ossify.Variables
 {
     [Serializable, InlineProperty]
-    public abstract class Reference<T, T1> where T1 : IVariable<T>
+    public abstract class Reference<TValue, TVariable> where TVariable : IVariable<TValue>
     {
         [HideLabel, HorizontalGroup("source", Width = 20), PropertyOrder(10)]
         public bool UseConstant = true;
         
         [ShowIf(nameof(UseConstant)), HideLabel, HorizontalGroup("source"), PropertyOrder(0)]
-        public T ConstantValue;
+        public TValue ConstantValue;
         
         [HideIf(nameof(UseConstant)), HideLabel, HorizontalGroup("source"), PropertyOrder(0)]
-        public T1 Variable;
+        public TVariable Variable;
         
         [HideIf(nameof(UseConstant)), ShowInInspector, HideLabel, HorizontalGroup("value"), PropertyOrder(20)]
-        private T EditorValue
+        private TValue EditorValue
         {
             get => Get();
             set => Set(value);
         }
         
-        public T Value
+        public TValue Value
         {
             get => Get();
             set => Set(value);
         }
         
-        public void Set(T value)
+        public void Set(TValue value)
         {
             if (UseConstant)
             {
@@ -40,9 +40,9 @@ namespace Ossify.Variables
                 Variable.Value = value;
         }
         
-        public T Get() => UseConstant ? ConstantValue : Variable != null ? Variable.Value : default;
+        public TValue Get() => UseConstant ? ConstantValue : Variable != null ? Variable.Value : default;
 
-        public event Action<T> ValueChanged
+        public event Action<TValue> ValueChanged
         {
             add
             {
@@ -56,8 +56,8 @@ namespace Ossify.Variables
             }
         }
 
-        private event Action<T> ConstantValueChanged;
+        private event Action<TValue> ConstantValueChanged;
         
-        public static implicit operator T(Reference<T, T1> reference) => reference.Value;
+        public static implicit operator TValue(Reference<TValue, TVariable> reference) => reference.Value;
     }
 }
