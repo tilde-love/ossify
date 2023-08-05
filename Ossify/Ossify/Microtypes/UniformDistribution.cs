@@ -9,10 +9,10 @@ namespace Ossify
         public override SampleHistory CreateHistory() => new (0);
 
         /// <inheritdoc />
-        public override int Distribute(int input, SampleHistory history) 
+        public override int Distribute(int input, SampleHistory state) 
         {
             var sample = Random.Range(0, input);
-            history.AddSample(sample); 
+            state.AddSample(sample); 
             return sample;
         }
     }
