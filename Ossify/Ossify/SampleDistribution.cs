@@ -22,6 +22,8 @@ namespace Ossify
 
         public void AddSample(int sample)
         {
+            if (History.Length == 0) return;
+
             History[index] = sample;
 
             index = (index + 1) % History.Length;
