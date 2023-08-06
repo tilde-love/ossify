@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Ossify.Variables;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.Serialization;
 namespace Ossify
 {
     public abstract class Accumulator<TValue, TVariable, TReference> : CustodianBackbone 
+        where TValue : IEquatable<TValue>
         where TVariable : class, IVariable<TValue> 
         where TReference : Reference<TValue, TVariable>, new () 
     {
@@ -46,7 +48,10 @@ namespace Ossify
         private void FinaliseValue()
         {
             output.Value = value;
+
             value = defaultValue.Value;
+
+            if (output.Value.Equals(defaultValue.Value) == false) call = CallMeOneTime.Get(FinaliseValue);
         }
 
         /// <inheritdoc />

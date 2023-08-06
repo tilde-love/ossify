@@ -10,9 +10,11 @@ namespace Ossify
     {
         private static CallMeOneTime current;
 
-        private readonly Queue<Action> actionQueue = new();
+        private int currentQueue = 0;
 
-        private readonly Queue<Call> callQueue = new();
+        private readonly Queue<Action>[] actionQueue = { new (), new () };
+
+        private readonly Queue<Call>[] callQueue = { new (), new () };
 
         private void Awake()
         {
@@ -24,21 +26,26 @@ namespace Ossify
         private async void OnEnable()
         {
             CancellationToken cancel = CancellationToken;
-
+            
             try
             {
                 while (cancel.IsCancellationRequested == false)
                 {
-                    while (callQueue.Count > 0)
+                    var calls = callQueue[currentQueue];
+                    var actions = actionQueue[currentQueue];
+
+                    currentQueue = (currentQueue + 1) % 2;
+ 
+                    while (calls.Count > 0)
                     {
-                        Call call = callQueue.Dequeue();
+                        Call call = calls.Dequeue();
                         call.queued = false;
                         call.Invoke();
                     }
 
-                    while (actionQueue.Count > 0)
+                    while (actions.Count > 0)
                     {
-                        Action action = actionQueue.Dequeue();
+                        Action action = actions.Dequeue();
                         action.Invoke();
                     }
 
@@ -75,16 +82,16 @@ namespace Ossify
         {
             if (call.queued) return;
 
-            current.callQueue.Enqueue(call);
+            current.callQueue[current.currentQueue].Enqueue(call);
 
             call.queued = true;
         }
 
         public static void Enqueue(Action action)
         {
-            if (current.actionQueue.Contains(action)) return;
+            if (current.actionQueue[current.currentQueue].Contains(action)) return;
 
-            current.actionQueue.Enqueue(action);
+            current.actionQueue[current.currentQueue].Enqueue(action);
         }
 
         public static Call Get(Action action) => new(action);
