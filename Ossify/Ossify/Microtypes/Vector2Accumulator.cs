@@ -8,33 +8,26 @@ namespace Ossify
     public class Vector2Accumulator : Accumulator<Vector2, Vector2Variable, Vector2Reference> 
     {
         /// <inheritdoc />
-        protected override void OnValueChanged(Vector2 value)
+        protected override Vector2 CalculateNewValue(Vector2 current, Vector2 value)
         {            
             switch (Mode)
             {
                 case AccumulationMode.Add:
-                    Output.Value += value;
-                    break;
+                    return current + value;
                 case AccumulationMode.Subtract:
-                    Output.Value -= value;
-                    break;
+                    return current - value;
                 case AccumulationMode.Multiply:
-                    Output.Value *= value;
-                    break;
+                    return Vector2.Scale(current, value);
                 case AccumulationMode.Divide:
-                    Output.Value /= value;
-                    break;
+                    return new (current.x / value.x, current.y / value.y); 
                 case AccumulationMode.Average:
-                    Output.Value = (Output.Value + value) / 2;
-                    break;
+                    return (current + value) / 2;
                 case AccumulationMode.Max:
-                    Output.Value = Vector2.Max(Output.Value, value);
-                    break;
+                    return Vector2.Max(current, value);
                 case AccumulationMode.Min:
-                    Output.Value = Vector2.Min(Output.Value, value);
-                    break;
+                    return Vector2.Min(current, value);
                 case AccumulationMode.None:
-                    break;
+                    return current;                    
                 default:
                     throw new ArgumentOutOfRangeException();
             }

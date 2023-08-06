@@ -8,35 +8,26 @@ namespace Ossify
     public class Vector4Accumulator : Accumulator<Vector4, Vector4Variable, Vector4Reference> 
     {
         /// <inheritdoc />
-        protected override void OnValueChanged(Vector4 value)
-        {           
-            var og = Output.Value;            
- 
+        protected override Vector4 CalculateNewValue(Vector4 current, Vector4 value)
+        {            
             switch (Mode)
             {
                 case AccumulationMode.Add:
-                    Output.Value = og + value; 
-                    break;
+                    return current + value;
                 case AccumulationMode.Subtract:
-                    Output.Value = og - value;
-                    break;
+                    return current - value;
                 case AccumulationMode.Multiply:
-                    Output.Value = Vector4.Scale(og, value);
-                    break;
-                case AccumulationMode.Divide:                        
-                    Output.Value = new (og.x / value.x, og.y / value.y, og.z / value.z, og.w / value.w);                
-                    break;
+                    return Vector4.Scale(current, value);
+                case AccumulationMode.Divide:
+                    return new (current.x / value.x, current.y / value.y, current.z / value.z, current.w / value.w); 
                 case AccumulationMode.Average:
-                    Output.Value = (og + value) / 2;
-                    break;
+                    return (current + value) / 2;
                 case AccumulationMode.Max:
-                    Output.Value = Vector4.Max(og, value);
-                    break;
+                    return Vector4.Max(current, value);
                 case AccumulationMode.Min:
-                    Output.Value = Vector4.Min(og, value);
-                    break;
+                    return Vector4.Min(current, value);
                 case AccumulationMode.None:
-                    break;
+                    return current;                    
                 default:
                     throw new ArgumentOutOfRangeException();
             }

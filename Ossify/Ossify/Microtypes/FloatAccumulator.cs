@@ -8,33 +8,26 @@ namespace Ossify
     public class FloatAccumulator : Accumulator<float, FloatVariable, FloatReference> 
     {
         /// <inheritdoc />
-        protected override void OnValueChanged(float value)
+        protected override float CalculateNewValue(float current, float value)
         {            
             switch (Mode)
             {
                 case AccumulationMode.Add:
-                    Output.Value += value;
-                    break;
+                    return current + value;
                 case AccumulationMode.Subtract:
-                    Output.Value -= value;
-                    break;
+                    return current - value;
                 case AccumulationMode.Multiply:
-                    Output.Value *= value;
-                    break;
+                    return current * value;
                 case AccumulationMode.Divide:
-                    Output.Value /= value;
-                    break;
+                    return current / value;
                 case AccumulationMode.Average:
-                    Output.Value = (Output.Value + value) / 2;
-                    break;
+                    return (current + value) / 2;
                 case AccumulationMode.Max:
-                    Output.Value = Mathf.Max(Output.Value, value);
-                    break;
+                    return Mathf.Max(current, value);
                 case AccumulationMode.Min:
-                    Output.Value = Mathf.Min(Output.Value, value);
-                    break;
+                    return Mathf.Min(current, value);
                 case AccumulationMode.None:
-                    break;
+                    return current;                    
                 default:
                     throw new ArgumentOutOfRangeException();
             }
