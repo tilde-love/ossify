@@ -51,7 +51,7 @@ namespace Ossify
 
             value = defaultValue.Value;
 
-            if (output.Value.Equals(defaultValue.Value) == false) call = CallMeOneTime.Get(FinaliseValue);
+            if (output.Value.Equals(defaultValue.Value) == false) CallMeOneTime.Enqueue(call);
         }
 
         /// <inheritdoc />
