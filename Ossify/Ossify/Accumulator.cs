@@ -18,6 +18,9 @@ namespace Ossify
 
         [SerializeField] private AccumulationMode mode = AccumulationMode.Add;
 
+        [SerializeField] private bool autoReset = true;
+        private CallMeOneTime.Call call;
+
         public TReference Input => input;
         public TReference Output => output;
         public TReference DefaultValue => defaultValue;
@@ -34,11 +37,20 @@ namespace Ossify
                 return;
             }
  
-            input.ValueChanged += OnValueChanged;
+            input.ValueChanged += OnPreValueChanged;
+
+            if (autoReset) call = CallMeOneTime.Get(Reset);
         }
 
         /// <inheritdoc />
-        protected override void End() => input.ValueChanged -= OnValueChanged;
+        protected override void End() => input.ValueChanged -= OnPreValueChanged;
+
+        private void OnPreValueChanged(TValue value)
+        {
+            OnValueChanged(value);
+
+            if (call != null) CallMeOneTime.Enqueue(call);
+        }    
 
         protected abstract void OnValueChanged(TValue value); 
     }

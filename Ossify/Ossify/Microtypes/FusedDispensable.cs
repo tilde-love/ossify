@@ -7,6 +7,7 @@ namespace Ossify.Ossify.Microtypes
     public class FusedDispensable : Dispensable
     {
         [SerializeField] private float duration = 4;
+
         private float time;
 
         private void Update()
