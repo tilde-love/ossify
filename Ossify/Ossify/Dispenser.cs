@@ -33,6 +33,15 @@ namespace Ossify
                 : singleItemDispensers[distribution.Distribute(singleItemDispensers.Count, history)]
                     .Dispense();
 
+#if UNITY_EDITOR
+        // use in the editor only 
+        protected ScriptableCollection<TValue> Items
+        {
+            get => items;
+            set => items = value;
+        }
+#endif        
+
         /// <inheritdoc />
         protected override void Begin()
         {
