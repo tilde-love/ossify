@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using Ossify.Microtypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Pool;

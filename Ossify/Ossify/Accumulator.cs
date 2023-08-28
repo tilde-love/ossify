@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using Ossify.Variables;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Ossify
 {
@@ -20,7 +16,6 @@ namespace Ossify
 
         [SerializeField] private AccumulationMode mode = AccumulationMode.Add;
 
-        // [SerializeField] private bool autoReset = true;
         private CallMeOneTime.Call call;
         private TValue value; 
 

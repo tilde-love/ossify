@@ -2,15 +2,13 @@
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-namespace Ossify.Ballots
+namespace Ossify
 {
     public sealed class BallotEvents : MonoBehaviour
     {
-        [FormerlySerializedAs("activation"), SerializeField]
-        private Ballot ballot;
+        [SerializeField] private Ballot ballot;
 
-        [FormerlySerializedAs("onActivationChanged"), SerializeField]
-        private BoolEvent onBallotChanged = new();
+        [SerializeField] private BoolEvent onBallotChanged = new();
 
         [SerializeField] private UnityEvent onActivated = new();
 

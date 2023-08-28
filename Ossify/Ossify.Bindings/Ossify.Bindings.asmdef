@@ -1,0 +1,20 @@
+﻿{
+  "name": "Ossify.Bindings",
+  "rootNamespace": "Ossify.Bindings",
+  "references": [
+    "Unity.TextMeshPro",
+    "UniTask",
+    "DoozyRuntime",
+    "Ossify",
+    "Ossify.Microtypes"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

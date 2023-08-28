@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Ossify
+namespace Ossify.Microtypes
 {
-    [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Variables/Uniform Distribution")]
+    [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Ossify/Uniform Distribution")]
     public sealed class UniformDistribution : SampleDistribution
     {        
         /// <inheritdoc />

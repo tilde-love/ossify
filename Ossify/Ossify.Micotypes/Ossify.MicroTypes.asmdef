@@ -1,0 +1,19 @@
+﻿{
+  "name": "Ossify.Microtypes",
+  "rootNamespace": "Ossify.Microtypes",
+  "references": [
+    "Unity.TextMeshPro",
+    "UniTask",
+    "DoozyRuntime",
+    "Ossify"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

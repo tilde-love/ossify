@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Ossify.Variables
+namespace Ossify
 {
-    public abstract class Subscriber<TValue, TVariable> : MonoBehaviour where TVariable : Variable<TValue>
+    public abstract class Subscriber<TValue, TVariable> : MonoBehaviour where TVariable : IVariable<TValue>
     {
         [SerializeField] private TVariable variable;
 

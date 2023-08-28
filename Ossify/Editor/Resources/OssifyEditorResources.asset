@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c1726d3abc45f89868fe6db17d33e3, type: 3}
+  m_Name: OssifyEditorResources
+  m_EditorClassIdentifier: 
+  variableIcon: {fileID: 2800000, guid: bc3af6727c2725c4791b363f4d2218e9, type: 3}
+  referenceIcon: {fileID: 2800000, guid: bae370f6c4d4ed847afabe218afc3d52, type: 3}
+  publisherIcon: {fileID: 2800000, guid: 7557da868f3fb29459630864274c6727, type: 3}
+  subscriberIcon: {fileID: 2800000, guid: c231dd0b2bc5d4640be8e917c23c49bc, type: 3}
+  dispenserIcon: {fileID: 2800000, guid: ecc9c983d833ff640a4346eacf32e84b, type: 3}
+  collectionIcon: {fileID: 2800000, guid: 7c0dadc023c09e14494091df237d97c6, type: 3}

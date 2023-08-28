@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75af9632621e41158d6311e11d156b09, type: 3}
+  m_Name: Default Micro Types
+  m_EditorClassIdentifier: 
+  outputNamespace: OssifyNew
+  menuName: Ossify-New
+  typeDefinitions:
+  - name: Bool
+    friendlyName: Bool
+    type: bool
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: ByteArray
+    friendlyName: ByteArray
+    type: byte[]
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: Pose
+    friendlyName: Pose
+    type: Pose
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: GameObject
+    friendlyName: GameObject
+    type: GameObject
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 1
+  - name: Float
+    friendlyName: Float
+    type: float
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: Vector2
+    friendlyName: Vector2
+    type: Vector2
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: Vector3
+    friendlyName: Vector3
+    type: Vector3
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: Vector4
+    friendlyName: Vector4
+    type: Vector4
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: Int
+    friendlyName: Int
+    type: int
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: String
+    friendlyName: String
+    type: string
+    includeVariable: 0
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: Sprite
+    friendlyName: Sprite
+    type: Sprite
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 0
+  - name: Transform
+    friendlyName: Transform
+    type: Transform
+    includeVariable: 1
+    includeReference: 1
+    includePubSub: 1
+    includeCollection: 1
+    includeDispenser: 1

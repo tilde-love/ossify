@@ -1,6 +1,6 @@
 namespace Ossify
 {
-    internal static class Consts
+    public static class Consts
     {
         public const int ActivationMenuItems = -12000;
         public const int ContainerMenuItems = -11500;

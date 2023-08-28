@@ -1,8 +1,8 @@
 using System;
-using Ossify.Variables;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
-namespace Ossify.Variables
+namespace Ossify
 {
     [Serializable, InlineProperty]
     public abstract class Reference<TValue, TVariable> where TVariable : IVariable<TValue>
@@ -13,7 +13,7 @@ namespace Ossify.Variables
         [ShowIf(nameof(UseConstant)), HideLabel, HorizontalGroup("source"), PropertyOrder(0)]
         public TValue ConstantValue;
         
-        [HideIf(nameof(UseConstant)), HideLabel, HorizontalGroup("source"), PropertyOrder(0)]
+        [HideIf(nameof(UseConstant)), HideLabel, HorizontalGroup("source"), PropertyOrder(0), SerializeReference]
         public TVariable Variable;
         
         [HideIf(nameof(UseConstant)), ShowInInspector, HideLabel, HorizontalGroup("value"), PropertyOrder(20)]

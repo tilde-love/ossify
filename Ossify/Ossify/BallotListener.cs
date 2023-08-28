@@ -1,14 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-namespace Ossify.Ballots
+namespace Ossify
 {
     public sealed class BallotListener : MonoBehaviour
     {
-        [FormerlySerializedAs("activation"), SerializeField]
-        private Ballot ballot;
+        [SerializeField] private Ballot ballot;
 
         [SerializeField] private bool invert;
 

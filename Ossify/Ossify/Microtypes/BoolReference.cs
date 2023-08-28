@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ossify.Variables
+namespace Ossify.Microtypes
 {
     [Serializable]
     public sealed class BoolReference : Reference<bool, BoolVariable> { }

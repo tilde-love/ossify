@@ -1,23 +1,18 @@
 ﻿using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-namespace Ossify.Ballots
+namespace Ossify
 {
-    public sealed class ImpulseListener : MonoBehaviour
+    public sealed class ImpulseListener : AsyncMonoBehaviour
     {
-        [FormerlySerializedAs("Pulse")] public Impulse impulse;
+        [SerializeField] private Impulse impulse;
 
         public UnityEvent OnPulsed = new();
 
-        private CancellationTokenSource cancelOnDisabled;
-
-        private CancellationToken CancelOnDisabledToken => (cancelOnDisabled ??= new CancellationTokenSource()).Token;
-
         private async void OnEnable()
         {
-            CancellationToken cancel = CancelOnDisabledToken;
+            CancellationToken cancel = CancellationToken;
 
             while (cancel.IsCancellationRequested == false)
             {
@@ -25,13 +20,6 @@ namespace Ossify.Ballots
 
                 OnPulsed.Invoke();
             }
-        }
-
-        private void OnDisable()
-        {
-            cancelOnDisabled?.Cancel();
-            cancelOnDisabled?.Dispose();
-            cancelOnDisabled = null;
         }
     }
 }

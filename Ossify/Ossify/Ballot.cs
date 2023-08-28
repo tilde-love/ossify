@@ -3,9 +3,9 @@ using System.Threading;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Ossify.Ballots
+namespace Ossify
 {
-    [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Variables/Ballot")]
+    [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Ossify/Ballot")]
     public sealed class Ballot : ScriptableObject
     {
         public enum BallotThresholdType

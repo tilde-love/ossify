@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ossify.Variables
+namespace Ossify
 {
     public interface IVariable<T> : IVariable
     {

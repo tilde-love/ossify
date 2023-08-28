@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Ossify.Variables
+namespace Ossify
 {
     public abstract class Variable<TValue> : ScriptableObject, IVariable<TValue>
     {

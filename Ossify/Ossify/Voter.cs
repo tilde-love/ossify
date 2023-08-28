@@ -1,13 +1,11 @@
-﻿using Ossify.Variables;
+﻿using Ossify.Microtypes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Ossify.Ballots
+namespace Ossify
 {
     public sealed class Voter : MonoBehaviour
     {
-        [FormerlySerializedAs("activation"), SerializeField]
-        private Ballot ballot;
+        [SerializeField] private Ballot ballot;
 
         [SerializeField] private BoolReference value = new() { Value = true };
 
