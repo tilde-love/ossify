@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ossify
 {
-    [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Ossify/Ballot")]
+    [CreateAssetMenu(order = Consts.BallotOrder, menuName = "Ossify/Ballot")]
     public sealed class Ballot : ScriptableObject
     {
         public enum BallotThresholdType

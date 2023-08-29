@@ -2,13 +2,13 @@
 using Ossify.Microtypes;
 using UnityEngine;
 
-namespace Ossify.Microtypes
+namespace Ossify
 {
-    [CreateAssetMenu(menuName = "Ossify/Float Accumulator")]
-    public class FloatAccumulator : Accumulator<float, FloatVariable, FloatReference> 
+    [CreateAssetMenu(menuName = "Ossify/Accumulators/Vector3", order = Ossify.Consts.AccumulatorOrder)]
+    public class Vector3Accumulator : Accumulator<Vector3, IVariable<Vector3>, Vector3Reference> 
     {
         /// <inheritdoc />
-        protected override float CalculateNewValue(float current, float value)
+        protected override Vector3 CalculateNewValue(Vector3 current, Vector3 value)
         {            
             switch (Mode)
             {
@@ -17,15 +17,15 @@ namespace Ossify.Microtypes
                 case AccumulationMode.Subtract:
                     return current - value;
                 case AccumulationMode.Multiply:
-                    return current * value;
+                    return Vector3.Scale(current, value);
                 case AccumulationMode.Divide:
-                    return current / value;
+                    return new (current.x / value.x, current.y / value.y, current.z / value.z); 
                 case AccumulationMode.Average:
                     return (current + value) / 2;
                 case AccumulationMode.Max:
-                    return Mathf.Max(current, value);
+                    return Vector3.Max(current, value);
                 case AccumulationMode.Min:
-                    return Mathf.Min(current, value);
+                    return Vector3.Min(current, value);
                 case AccumulationMode.None:
                     return current;                    
                 default:

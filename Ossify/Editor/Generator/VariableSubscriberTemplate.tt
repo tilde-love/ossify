@@ -12,7 +12,7 @@ namespace <#= this.Namespace #>
     public sealed class <#= this.Name #>Subscriber : Subscriber<<#= this.Type #>, IVariable<<#= this.Type #>>> 
     {
 #if UNITY_EDITOR
-        [MenuItem("GameObject/<#= this.MenuName #>/Subscribers/<#= this.FriendlyName #>", false, <#= this.MenuOrder #>)]
+        [MenuItem("GameObject/<#= this.MenuName #>/Subscribers/<#= this.FriendlyName #>", false, Ossify.Consts.SubscriberOrder)]
         static void CreateViaMenu(MenuCommand menuCommand) => menuCommand.CreateComponent<<#= this.Name #>Subscriber>("<#= this.FriendlyName #> Subscriber");
 #endif
     }

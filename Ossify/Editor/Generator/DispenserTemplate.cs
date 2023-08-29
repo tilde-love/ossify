@@ -32,14 +32,7 @@ namespace Ossify.Editor.Editor.Generator
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    [CreateAssetMenu(order = ");
-            
-            #line 8 "F:\tilde-love\unity-packages\ossify\Ossify\Editor\Generator\DispenserTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.MenuOrder));
-            
-            #line default
-            #line hidden
-            this.Write(", menuName = \"");
+            this.Write("\r\n{\r\n    [CreateAssetMenu(order = Ossify.Consts.DispenserOrder, menuName = \"");
             
             #line 8 "F:\tilde-love\unity-packages\ossify\Ossify\Editor\Generator\DispenserTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.MenuName));

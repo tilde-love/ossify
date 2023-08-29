@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Ossify.Microtypes
 {
-    [CreateAssetMenu(menuName = "Ossify/Int Accumulator")]
-    public class IntAccumulator : Accumulator<int, IntVariable, IntReference> 
+    [CreateAssetMenu(menuName = "Ossify/Accumulators/Int", order = Ossify.Consts.AccumulatorOrder)]
+    public class IntAccumulator : Accumulator<int, IVariable<int>, IntReference> 
     {
         /// <inheritdoc />
         protected override int CalculateNewValue(int current, int value)

@@ -12,7 +12,7 @@ namespace <#= this.Namespace #>
     public sealed class <#= this.Name #>Publisher : Publisher<<#= this.Type #>, IVariable<<#= this.Type #>>, <#= this.Name #>Reference> 
     { 
 #if UNITY_EDITOR
-        [MenuItem("GameObject/<#= this.MenuName #>/Publishers/<#= this.FriendlyName #>", false, <#= this.MenuOrder #>)]
+        [MenuItem("GameObject/<#= this.MenuName #>/Publishers/<#= this.FriendlyName #>", false, Ossify.Consts.PublisherOrder)]
         static void CreateViaMenu(MenuCommand menuCommand) => menuCommand.CreateComponent<<#= this.Name #>Publisher>("<#= this.FriendlyName #> Publisher");
 #endif
     }

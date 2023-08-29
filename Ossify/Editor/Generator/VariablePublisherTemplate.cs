@@ -74,14 +74,7 @@ namespace Ossify.Editor.Editor.Generator
             
             #line default
             #line hidden
-            this.Write("\", false, ");
-            
-            #line 15 "F:\tilde-love\unity-packages\ossify\Ossify\Editor\Generator\VariablePublisherTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.MenuOrder));
-            
-            #line default
-            #line hidden
-            this.Write(")]\r\n        static void CreateViaMenu(MenuCommand menuCommand) => menuCommand.CreateComponent<");
+            this.Write("\", false, Ossify.Consts.PublisherOrder)]\r\n        static void CreateViaMenu(MenuCommand menuCommand) => menuCommand.CreateComponent<");
             
             #line 16 "F:\tilde-love\unity-packages\ossify\Ossify\Editor\Generator\VariablePublisherTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Name));

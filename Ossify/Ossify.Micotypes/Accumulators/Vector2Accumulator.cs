@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Ossify
 {
-    [CreateAssetMenu(menuName = "Variables/Vector2 Accumulator")]
-    public class Vector2Accumulator : Accumulator<Vector2, Vector2Variable, Vector2Reference> 
+    [CreateAssetMenu(menuName = "Ossify/Accumulators/Vector2", order = Ossify.Consts.AccumulatorOrder)]
+    public class Vector2Accumulator : Accumulator<Vector2, IVariable<Vector2>, Vector2Reference> 
     {
         /// <inheritdoc />
         protected override Vector2 CalculateNewValue(Vector2 current, Vector2 value)

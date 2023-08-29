@@ -5,7 +5,7 @@ using Ossify;
 
 namespace <#= this.Namespace #>
 {
-    [CreateAssetMenu(order = <#= this.MenuOrder #>, menuName = "<#= this.MenuName #>/Dispensers/<#= this.FriendlyName #>")]
+    [CreateAssetMenu(order = Ossify.Consts.DispenserOrder, menuName = "<#= this.MenuName #>/Dispensers/<#= this.FriendlyName #>")]
     public class <#= this.Name #>Dispenser : Dispenser<<#= this.Type #>> { }
 }
 <#+

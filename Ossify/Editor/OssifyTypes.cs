@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Ossify.Editor
 {
-    [CreateAssetMenu(menuName = "Ossify/Types Definition")]
+    [CreateAssetMenu(menuName = "Ossify/Types Definition", order = Ossify.Consts.ToolingOrder)]
     public class OssifyTypes : ScriptableObject
     {
         [SerializeField] private string outputNamespace = "";

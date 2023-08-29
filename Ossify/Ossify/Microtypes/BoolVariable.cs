@@ -2,7 +2,7 @@
 
 namespace Ossify.Microtypes
 {
-    [CreateAssetMenu(order = Consts.VariableMenuItems, menuName = "Ossify/Bool")]
+    [CreateAssetMenu(order = Ossify.Consts.VariableOrder, menuName = "Ossify/Bool")]
     public sealed class BoolVariable : Variable<bool>
     {
         public void Toggle()

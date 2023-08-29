@@ -9,8 +9,8 @@ namespace Ossify.Microtypes
     // 
     // public sealed class StringVariable : Variable<string> { }
 
-    [CreateAssetMenu(order = Consts.VariableMenuItems, menuName = "Ossify/String")]
-    public sealed class StringVariable : ScriptableObject, IVariable<string>
+    [CreateAssetMenu(order = Consts.VariableOrder, menuName = "Ossify/Text")]
+    public sealed class TextVariable : ScriptableObject, IVariable<string>
     {
         [SerializeField, TextArea] private string comment;
 

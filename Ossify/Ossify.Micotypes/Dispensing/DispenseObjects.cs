@@ -7,7 +7,7 @@ namespace Ossify.Microtypes
 {
     public class DispenseObjects : AsyncMonoBehaviour
     {
-        public ObjectDispenser dispenser;
+        public GameObjectDispenser dispenser;
 
         [SerializeField] private float intervalSeconds = 0.1f;
 

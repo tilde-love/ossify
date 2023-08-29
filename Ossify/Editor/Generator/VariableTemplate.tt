@@ -9,7 +9,7 @@ using UnityEditor;
  
 namespace <#= this.Namespace #>
 {
-    [UnityEngine.CreateAssetMenu(order = <#= this.MenuOrder #>, menuName = "<#= this.MenuName #>/<#= this.FriendlyName #>")]
+    [UnityEngine.CreateAssetMenu(order = Ossify.Consts.VariableOrder, menuName = "<#= this.MenuName #>/<#= this.FriendlyName #>")]
     public sealed class <#= this.Name #>Variable : Variable<<#= this.Type #>>
     {
     }

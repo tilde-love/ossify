@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 namespace Ossify
 {
-    [CreateAssetMenu(order = Consts.ActivationMenuItems, menuName = "Variables/Impulse")]
+    [CreateAssetMenu(order = Consts.ImpulseOrder, menuName = "Ossify/Impulse")]
     public sealed class Impulse : ScriptableObject
     {
         public event Action Pulsed;
