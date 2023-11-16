@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f5e4da5110d4e768012df70ede037f3, type: 3}
+  m_Script: {fileID: 11500000, guid: bd55ac0b6094e3147a6bfba3cedd5f80, type: 3}
   m_Name: Test Object Dispenser
   m_EditorClassIdentifier: 
   defaultCapacity: 10
   preAllocate: 1
-  distribution: {fileID: 11400000, guid: 46ed1e725cfa20c40a9b3efd364db445, type: 2}
-  items: {fileID: 11400000, guid: 7da037821163a764d97744db3dc31d27, type: 2}
+  distribution: {fileID: 11400000, guid: 3edc895ec0eba6147b1059caf0f7f755, type: 2}
+  items: {fileID: 11400000, guid: 5096a6e0168b3494baa4073387d8af89, type: 2}

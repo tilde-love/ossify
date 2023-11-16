@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75af9632621e41158d6311e11d156b09, type: 3}
   m_Name: Default Micro Types
   m_EditorClassIdentifier: 
-  outputNamespace: OssifyNew
-  menuName: Ossify-New
+  outputNamespace: Ossify.Microtypes
+  menuName: Ossify
   typeDefinitions:
   - name: Bool
     friendlyName: Bool
     type: bool
-    includeVariable: 1
-    includeReference: 1
+    includeVariable: 0
+    includeReference: 0
     includePubSub: 1
     includeCollection: 1
     includeDispenser: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
   - name: String
     friendlyName: String
     type: string
-    includeVariable: 0
+    includeVariable: 1
     includeReference: 1
     includePubSub: 1
     includeCollection: 1

@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f0e18e9922a4410a44b97cb3f7248d8, type: 3}
-  m_Name: Test Objects
+  m_Script: {fileID: 11500000, guid: 05f650730cbe4637b66367a3ad5ba351, type: 3}
+  m_Name: Uniform Distribution
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 3339888557299447239, guid: 282381a08e17a754db7e2fb7ccecd58c, type: 3}
-  - {fileID: 4440853682195853927, guid: c64983d1e3199664c91e4062afaa210b, type: 3}
