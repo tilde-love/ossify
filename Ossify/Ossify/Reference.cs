@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Ossify
 {
     [Serializable, InlineProperty]
-    public abstract class Reference<TValue, TVariable> where TVariable : IVariable<TValue>
+    public abstract class Reference<TValue, TVariable> where TVariable : Variable<TValue>
     {
         [HideLabel, HorizontalGroup("source", Width = 20), PropertyOrder(10)]
         public bool UseConstant = true;

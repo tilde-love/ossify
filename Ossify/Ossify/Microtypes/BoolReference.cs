@@ -3,5 +3,5 @@
 namespace Ossify.Microtypes
 {
     [Serializable]
-    public sealed class BoolReference : Reference<bool, IVariable<bool>> { }
+    public sealed class BoolReference : Reference<bool, Variable<bool>> { }
 }

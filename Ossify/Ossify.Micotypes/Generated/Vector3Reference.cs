@@ -5,7 +5,7 @@ using Ossify;
 namespace Ossify.Microtypes
 {
     [System.Serializable]
-    public sealed class Vector3Reference : Reference<Vector3, IVariable<Vector3>> 
+    public sealed class Vector3Reference : Reference<Vector3, Variable<Vector3>> 
     { 
     }
 }

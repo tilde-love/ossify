@@ -5,32 +5,21 @@ using UnityEngine;
 namespace Ossify.Microtypes
 {
     [CreateAssetMenu(menuName = "Ossify/Accumulators/Float ", order = Ossify.Consts.AccumulatorOrder)]
-    public class FloatAccumulator : Accumulator<float, IVariable<float>, FloatReference> 
+    public class FloatAccumulator : Accumulator<float, Variable<float>, FloatReference> 
     {
         /// <inheritdoc />
-        protected override float CalculateNewValue(float current, float value)
-        {            
-            switch (Mode)
+        protected override float CalculateNewValue(float current, float value) =>
+            Mode switch
             {
-                case AccumulationMode.Add:
-                    return current + value;
-                case AccumulationMode.Subtract:
-                    return current - value;
-                case AccumulationMode.Multiply:
-                    return current * value;
-                case AccumulationMode.Divide:
-                    return current / value;
-                case AccumulationMode.Average:
-                    return (current + value) / 2;
-                case AccumulationMode.Max:
-                    return Mathf.Max(current, value);
-                case AccumulationMode.Min:
-                    return Mathf.Min(current, value);
-                case AccumulationMode.None:
-                    return current;                    
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+                AccumulationMode.Add => current + value,
+                AccumulationMode.Subtract => current - value,
+                AccumulationMode.Multiply => current * value,
+                AccumulationMode.Divide => current / value,
+                AccumulationMode.Average => (current + value) / 2,
+                AccumulationMode.Max => Mathf.Max(current, value),
+                AccumulationMode.Min => Mathf.Min(current, value),
+                AccumulationMode.None => current,
+                _ => throw new ArgumentOutOfRangeException()
+            };
     }
 }

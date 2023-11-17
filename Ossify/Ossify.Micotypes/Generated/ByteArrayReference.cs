@@ -5,7 +5,7 @@ using Ossify;
 namespace Ossify.Microtypes
 {
     [System.Serializable]
-    public sealed class ByteArrayReference : Reference<byte[], IVariable<byte[]>> 
+    public sealed class ByteArrayReference : Reference<byte[], Variable<byte[]>> 
     { 
     }
 }

@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class Vector4Subscriber : Subscriber<Vector4, IVariable<Vector4>> 
+    public sealed class Vector4Subscriber : Subscriber<Vector4, Variable<Vector4>> 
     {
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Subscribers/Vector4", false, Ossify.Consts.SubscriberOrder)]

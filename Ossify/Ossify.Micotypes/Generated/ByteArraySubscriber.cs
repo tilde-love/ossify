@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class ByteArraySubscriber : Subscriber<byte[], IVariable<byte[]>> 
+    public sealed class ByteArraySubscriber : Subscriber<byte[], Variable<byte[]>> 
     {
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Subscribers/ByteArray", false, Ossify.Consts.SubscriberOrder)]

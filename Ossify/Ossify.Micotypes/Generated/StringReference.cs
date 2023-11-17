@@ -5,7 +5,7 @@ using Ossify;
 namespace Ossify.Microtypes
 {
     [System.Serializable]
-    public sealed class StringReference : Reference<string, IVariable<string>> 
+    public sealed class StringReference : Reference<string, Variable<string>> 
     { 
     }
 }

@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class FloatSubscriber : Subscriber<float, IVariable<float>> 
+    public sealed class FloatSubscriber : Subscriber<float, Variable<float>> 
     {
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Subscribers/Float", false, Ossify.Consts.SubscriberOrder)]

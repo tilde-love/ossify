@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class ByteArrayPublisher : Publisher<byte[], IVariable<byte[]>, ByteArrayReference> 
+    public sealed class ByteArrayPublisher : Publisher<byte[], Variable<byte[]>, ByteArrayReference> 
     { 
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Publishers/ByteArray", false, Ossify.Consts.PublisherOrder)]

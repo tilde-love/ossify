@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class FloatPublisher : Publisher<float, IVariable<float>, FloatReference> 
+    public sealed class FloatPublisher : Publisher<float, Variable<float>, FloatReference> 
     { 
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Publishers/Float", false, Ossify.Consts.PublisherOrder)]

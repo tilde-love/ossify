@@ -1,11 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Ossify
 {
     public abstract class Accumulator<TValue, TVariable, TReference> : CustodianBackbone 
         where TValue : IEquatable<TValue>
-        where TVariable : class, IVariable<TValue> 
+        where TVariable : Variable<TValue> 
         where TReference : Reference<TValue, TVariable>, new () 
     {
         [SerializeField] private TReference input = new () { Value = default };
@@ -29,7 +30,7 @@ namespace Ossify
         /// <inheritdoc />
         protected override void Begin()
         {
-            if (input.UseConstant == false && output.UseConstant == false && input.Variable == output.Variable)
+            if (input.UseConstant == false && output.UseConstant == false && Equals(input.Variable, output.Variable))
             {
                 Debug.LogError("Input and output cannot be the same variable.");
                 return;

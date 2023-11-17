@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class Vector3Publisher : Publisher<Vector3, IVariable<Vector3>, Vector3Reference> 
+    public sealed class Vector3Publisher : Publisher<Vector3, Variable<Vector3>, Vector3Reference> 
     { 
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Publishers/Vector3", false, Ossify.Consts.PublisherOrder)]

@@ -61,7 +61,7 @@ namespace Ossify
             set => SetValue(value);
         }
 
-        private bool ShowVolatileValue() => access == VariableAccess.Volatile && Application.isPlaying;
+        protected bool ShowVolatileValue() => access == VariableAccess.Volatile && Application.isPlaying;
 
         private void SetValue(TValue value)
         {
@@ -105,7 +105,10 @@ namespace Ossify
 
         private event Action<object> objectValueChanged;
 
-        private void OnEditorChangedProtectedValue()
+        /// <summary>
+        /// The only known use case is when making custom inspectors, its probably not a good idea to use this anywhere else
+        /// </summary>
+        protected void OnEditorChangedProtectedValue()
         {
             if (Application.isPlaying == false) return;
 
@@ -114,6 +117,9 @@ namespace Ossify
             TriggerValueChange(volatileValue);
         }
 
-        private void OnEditorChangedVolatileValue() => TriggerValueChange(volatileValue);
+        /// <summary>
+        /// The only known use case is when making custom inspectors, its probably not a good idea to use this anywhere else
+        /// </summary>
+        protected void OnEditorChangedVolatileValue() => TriggerValueChange(volatileValue);
     }
 }

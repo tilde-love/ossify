@@ -46,7 +46,7 @@ namespace Ossify.Editor.Editor.Generator
             
             #line default
             #line hidden
-            this.Write(", IVariable<");
+            this.Write(", Variable<");
             
             #line 9 "F:\tilde-love\unity-packages\ossify\Ossify\Editor\Generator\VariableReferenceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Type));

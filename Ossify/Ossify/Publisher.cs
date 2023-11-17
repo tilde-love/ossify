@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 namespace Ossify
 {
     public abstract class Publisher<TValue, TVariable, TReference> : MonoBehaviour
-        where TVariable : IVariable<TValue>
+        where TVariable : Variable<TValue>
         where TReference : Reference<TValue, TVariable>
     {
         [FormerlySerializedAs("variable"), SerializeField]

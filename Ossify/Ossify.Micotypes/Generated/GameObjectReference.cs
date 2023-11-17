@@ -5,7 +5,7 @@ using Ossify;
 namespace Ossify.Microtypes
 {
     [System.Serializable]
-    public sealed class GameObjectReference : Reference<GameObject, IVariable<GameObject>> 
+    public sealed class GameObjectReference : Reference<GameObject, Variable<GameObject>> 
     { 
     }
 }

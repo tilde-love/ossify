@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class SpriteSubscriber : Subscriber<Sprite, IVariable<Sprite>> 
+    public sealed class SpriteSubscriber : Subscriber<Sprite, Variable<Sprite>> 
     {
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Subscribers/Sprite", false, Ossify.Consts.SubscriberOrder)]

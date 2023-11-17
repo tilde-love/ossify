@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class IntPublisher : Publisher<int, IVariable<int>, IntReference> 
+    public sealed class IntPublisher : Publisher<int, Variable<int>, IntReference> 
     { 
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Publishers/Int", false, Ossify.Consts.PublisherOrder)]

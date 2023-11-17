@@ -6,7 +6,7 @@ using Ossify;
 namespace <#= this.Namespace #>
 {
     [System.Serializable]
-    public sealed class <#= this.Name #>Reference : Reference<<#= this.Type #>, IVariable<<#= this.Type #>>> 
+    public sealed class <#= this.Name #>Reference : Reference<<#= this.Type #>, Variable<<#= this.Type #>>> 
     { 
     }
 }

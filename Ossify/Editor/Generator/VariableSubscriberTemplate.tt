@@ -9,7 +9,7 @@ using UnityEditor;
  
 namespace <#= this.Namespace #>
 {
-    public sealed class <#= this.Name #>Subscriber : Subscriber<<#= this.Type #>, IVariable<<#= this.Type #>>> 
+    public sealed class <#= this.Name #>Subscriber : Subscriber<<#= this.Type #>, Variable<<#= this.Type #>>> 
     {
 #if UNITY_EDITOR
         [MenuItem("GameObject/<#= this.MenuName #>/Subscribers/<#= this.FriendlyName #>", false, Ossify.Consts.SubscriberOrder)]

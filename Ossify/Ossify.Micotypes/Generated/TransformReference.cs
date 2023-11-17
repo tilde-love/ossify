@@ -5,7 +5,7 @@ using Ossify;
 namespace Ossify.Microtypes
 {
     [System.Serializable]
-    public sealed class TransformReference : Reference<Transform, IVariable<Transform>> 
+    public sealed class TransformReference : Reference<Transform, Variable<Transform>> 
     { 
     }
 }

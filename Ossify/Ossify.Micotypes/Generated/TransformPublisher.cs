@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class TransformPublisher : Publisher<Transform, IVariable<Transform>, TransformReference> 
+    public sealed class TransformPublisher : Publisher<Transform, Variable<Transform>, TransformReference> 
     { 
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Publishers/Transform", false, Ossify.Consts.PublisherOrder)]

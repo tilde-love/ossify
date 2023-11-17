@@ -8,7 +8,7 @@ using UnityEditor;
  
 namespace Ossify.Microtypes
 {
-    public sealed class PosePublisher : Publisher<Pose, IVariable<Pose>, PoseReference> 
+    public sealed class PosePublisher : Publisher<Pose, Variable<Pose>, PoseReference> 
     { 
 #if UNITY_EDITOR
         [MenuItem("GameObject/Ossify/Publishers/Pose", false, Ossify.Consts.PublisherOrder)]
